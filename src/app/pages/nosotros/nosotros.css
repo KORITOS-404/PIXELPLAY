@@ -1,0 +1,95 @@
+.letra{
+font-family: 'Agdasima', sans-serif;
+}
+
+.juegos-icon {
+  height: 30vh;               
+  color: white;                
+  text-align: center;         
+  font-family: 'Luckiest Guy', cursive; 
+  width: 100%;                 
+  border-color: black;        
+  position: relative;          
+}
+
+.juegos-icon img {
+  width: 100%;                 
+  height: 100%;                
+  opacity: 0.6;               
+  object-fit: cover;           /* cubre la imagen sin distorsión */
+}
+
+.Nosotros {
+  position: absolute;          
+  top: 25%;                     
+  left: 50%;                    
+  transform: translate(-50%, -50%); 
+  -webkit-text-stroke: 2px black; 
+  font-size: 90px;              
+  font-weight: bold;            
+}
+
+.Texto-Nosotros {
+  text-align: justify;         
+  padding: 5% 14%;              
+  font-size: 34px;   
+  font-weight: bold;        
+}
+.Texto-Nosotros li{
+  margin-left: 5%;
+}
+
+.bloque-azul{
+  display: flex;              
+  justify-content: center;    
+  gap: 10%;                 
+}
+
+.cuadro {
+  background-color: #052858;  
+  color: white;               
+  width: 200px;              
+  padding: 30px;              
+  text-align: center;        
+  font-size: 25px;
+  border-radius: 10%;
+}
+.cuadro h3 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.ubicanos{
+  margin-left: 15%;
+  margin-top: 8%;
+  font-size: 30px;
+  text-align: justify;
+  margin-right: 15%;
+  font-weight: bold;
+}
+.ubicanos h1 {
+  font-size: 60px;
+  text-align: left;
+}
+
+.salon_de_juegos{
+  width: 100%;       
+  max-width: 1200px;
+  margin: 0 auto;    
+}
+
+.salon_de_juegos img{
+  display: block;     
+  width: 100%;  
+  height: auto;     
+}
+
+.ubicanos h2{
+  text-align: center;
+}
+
+.mapa{
+text-align: center;
+padding-bottom: 50px;
+padding-top: 50px;
+}
