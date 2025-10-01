@@ -14,7 +14,7 @@
   transform: translateY(-2px);
 }
 .header-container {
-  position: fixed;
+  position: relative; /*se hizo el cambio de fixed a relative*/
   top: 0;
   left: 0;
   width: 100vw;
@@ -215,3 +215,5 @@ header {
     margin-top: 10px;
   }
 }
+
+
