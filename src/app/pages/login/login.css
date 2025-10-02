@@ -16,7 +16,7 @@ body {
 }
 
 .wrapper{
-    width: 420px;
+    width: 520px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
     backdrop-filter: blur(20px);
@@ -109,7 +109,7 @@ body {
 }
 
 .register-link p a{
-    color: #08064e;
+    color: #ffffff;
     text-decoration: none;
     font-weight: 600;
 
