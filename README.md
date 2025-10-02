@@ -1,59 +1,33 @@
-# Pixapp
+# Tienda de videojuegos PixelPlay
+## Introduccion 
+PixelPlay es una tienda ubicada en una galería en Wilson que buscó mejorar su gestión de bases de datos y expandirse a nivel de todo Lima por ello via este repositorio se explicará el apartado del **frontend** que hemos empleado en el proyecto
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
 
-## Development server
+Para el desarrollo de la página vamos a hacer el desarrollo de 7 vistas :
 
-To start a local development server, run:
+* [V] Inicio
+* [V]Login
+* [V] Nosotros
+* [V]Register
+* [X]Dirección de envio
+* [X]Secciones
+* [X]Carrito
 
-```bash
-ng serve
-```
+## Desarrollo 
+En este apartado se explicará el desarrollo del  frontend de la tienda de videojuegos  **Pixel Play** donde se ha trabajado con Angular y el puerto de uso  4200.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Inicio :heavy_check_mark:
+En esta vista se muestra un carrusel con eventos y notificaciones de nuevos  **lanzamientos** ,promociones de tiempo limitado y  los juegos mas vendidos.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Register :page_with_curl:
+En esta vista se le permitirá al cliente ingresar sus datos para poder ser ingresado en el sistema , esto es indispensable ya que con ello se podrán tomar sus datos para el pedido.
+### Login :walking_man:
+En esta vista el usuario si ya esta registrado podrá ingresar con el usuario que se registro.
+### Nosotros :green_heart:
+Aqui la empresa habla sobre si misma , los valores que tiene y lo que quiere llegar a ser de aqui a unos años.
+### Dirección de Envío :motor_scooter:
+Esta vista solo estará habilitada si el usuario ha sido registrado , como su nombre indica con estos datos se va a poder hacer entrega del pedido.
+### Secciones :open_file_folder:
+Aqui el usuario podrá seleccionar los productos que posteriormente quiera comprar
+### Carrito  :shopping_cart:
+Esta vista se conecta con los productos selecionados en **Secciones** , se podra ver el monto total , descuento si hubiera y el costo de envio .
