@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
 body {
@@ -13,6 +12,7 @@ body {
     background: url('/Fondo.png') no-repeat;
     background-size: cover;
     background-position: center;
+    font-family: "Luckiest Guy", cursive;
 }
 
 .wrapper{
@@ -20,19 +20,17 @@ body {
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
     backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
 }
 
 .pixel-title {
-  font-size: 4rem;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-size: 7rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  background-color: #020111;
   text-align: center;
+  -webkit-text-stroke: 0.8px black; 
 }
 
 .letra.azul     { color: #007BFF; }
@@ -53,19 +51,21 @@ body {
 .input-box input{
     width: 100%;
     height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
+    background-color: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 40px;
     font-size: 16px;
-    color: #fff;
     padding: 20px 45px 20px 20px;
+    font-family: "Luckiest Guy", cursive;
 }
 
 .input-box input::placeholder {
-    color: #fff;
+    color: #c0b2b2;
+    font-weight: bold;
+    font-family: "Luckiest Guy", cursive;
+    font-size: 18px;
 }
+
 
 .wrapper .remember-forgot {
     display: flex;
@@ -91,30 +91,36 @@ body {
 .wrapper .btn{
     width: 100%;
     height: 45px;
-    background: #020111;
-    border: none;
-    outline: none;
+    background: rgb(25, 16, 145);
     border-radius: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 16px;
     color: #c0b2b2;
-    font-weight: 600;
+    font-family: "Luckiest Guy", cursive;
 }
 
 .wrapper .register-link{
-    font-size: 14.5px;
+    font-size: 18px;
     text-align: center;
-    margin-top: 20px 0 15px;
+    margin-top: 15px;
 }
 
 .register-link p a{
     color: #ffffff;
     text-decoration: none;
-    font-weight: 600;
-
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .register-link p a:hover{
     text-decoration: underline;
+}
+
+.wrapper .btn:hover{
+    background-color: rgb(199, 17, 17);
+}
+
+.input-box input:focus{
+    background-color: white;
 }
