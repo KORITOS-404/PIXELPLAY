@@ -162,6 +162,7 @@ header {
   width: 95%;
   color: #111;
   padding: 0.5rem 0;
+  font-family: "Bayon", sans-serif;
 }
 .search-box input::placeholder {
   color: #aaa;
@@ -174,6 +175,7 @@ header {
   margin-right: 10px;
   font-weight: bold;
   filter: drop-shadow(0 0 1px #111);
+
 }
 
 /* responsive */
