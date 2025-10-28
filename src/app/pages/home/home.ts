@@ -66,8 +66,4 @@ export class Home {
   closeModal() {
     this.showModal = false;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0c75976a23873f02a9cc9ea998c75d8ff366091f
