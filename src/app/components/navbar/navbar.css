@@ -165,7 +165,8 @@ header {
 }
 .search-box input::placeholder {
   color: #aaa;
-  font-style: italic;
+    font-family: "Bayon", sans-serif;
+    letter-spacing: 1px;
 }
 .search-box i {
   color: #111;
