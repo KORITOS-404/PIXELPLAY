@@ -3,32 +3,32 @@
   <div class="footer-top">
     <div class="footer-contact">
       <h3>CONTACTO</h3>
-      <p><i class="fa-solid fa-phone-volume"></i>+51 999 999 999</p>
-      <p><i class="fa-solid fa-envelope"></i>pixelplay@gmail.com</p>
-      <p><i class="fa-solid fa-location-dot"></i>Av. Bolivia 180, Lima 15001</p>
+      <p (click)="callPhone()"><i class="fa-solid fa-phone-volume"></i>+51 999 999 999</p>
+      <p (click)="sendEmail()"><i class="fa-solid fa-envelope"></i>pixelplay@gmail.com</p>
+      <p (click)="openLocation()"><i class="fa-solid fa-location-dot"></i>Av. Bolivia 180, Lima 15001</p>
     </div>
 
-    <div class="footer-logo">
+    <div class="footer-logo" (click)="scrollToTop()">
       <h1>PIXEL<br>PLAY</h1>
     </div>
 
     <div class="footer-links">
       <h3>ENLACES</h3>
-      <p>INICIO</p>
-      <p>NOSOTROS</p>
+      <p (click)="navigateToHome()">INICIO</p>
+      <p (click)="navigateToNosotros()">NOSOTROS</p>
       <p>MI CARRITO</p>
-      <p>INICIAR SESIÓN</p>
+      <p (click)="navigateToLogin()">INICIAR SESIÓN</p>
     </div>
   </div>
 
   <div class="footer-bottom">
     <p>Copyright © 2025 - Pixel Play - Derechos Reservados</p>
     <div>
-      <i class="fa-brands fa-youtube"></i>
-      <i class="fa-brands fa-tiktok"></i>
-      <i class="fa-brands fa-facebook"></i>
-      <i class="fa-brands fa-whatsapp"></i>
-      <i class="fa-brands fa-discord"></i>
+      <i class="fa-brands fa-youtube" (click)="openYouTube()"></i>
+      <i class="fa-brands fa-tiktok" (click)="openTikTok()"></i>
+      <i class="fa-brands fa-facebook" (click)="openFacebook()"></i>
+      <i class="fa-brands fa-whatsapp" (click)="openWhatsApp()"></i>
+      <i class="fa-brands fa-discord" (click)="openDiscord()"></i>
     </div>
   </div>
 </footer>
