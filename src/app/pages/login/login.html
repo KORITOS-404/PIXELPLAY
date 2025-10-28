@@ -12,22 +12,71 @@
             <span class="letra rojo">A</span>
             <span class="letra verde">Y</span>
         </h1>  
-        <form action="">
+        
+        <!-- FORMULARIO CONECTADO -->
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            
+            <!-- CAMPO CORREO -->
             <div class="input-box">
-                <input type="text" placeholder="Usuario" required>
+                <input 
+                    type="email" 
+                    name="correo"
+                    [(ngModel)]="credentials.correo"
+                    placeholder="Correo Electrónico"
+                    required
+                    email
+                    [disabled]="isLoading"
+                >
             </div>
+            
+            <!-- CAMPO PASSWORD -->
             <div class="input-box">
-                <input type="password" placeholder="Contraseña" required>
+                <input 
+                    type="password" 
+                    name="password"
+                    [(ngModel)]="credentials.password"
+                    placeholder="Contraseña"
+                    required
+                    minlength="6"
+                    [disabled]="isLoading"
+                >
             </div>
+
+            <!-- MENSAJE DE ERROR - CAMBIADO A showError -->
+            @if (showError && errorMessage) {
+                <div class="error-message" 
+                     [class.error-type-error]="errorType === 'error'"
+                     [class.error-type-warning]="errorType === 'warning'"
+                     [class.error-type-info]="errorType === 'info'">
+                    <span class="error-icon">
+                        @if (errorType === 'error') { ❌ }
+                        @if (errorType === 'warning') { ⚠️ }
+                        @if (errorType === 'info') { ℹ️ }
+                    </span>
+                    <span>{{ errorMessage }}</span>
+                    <button type="button" class="close-error" (click)="clearError()">✕</button>
+                </div>
+            }
 
             <div class="remember-forgot">
-                <a href="#">Olvidaste tu contraseña?</a>
+                <a href="#">¿Olvidaste tu contraseña?</a>
             </div>
 
-            <button type="submit" class="btn">Iniciar Sesión</button>
+            <!-- BOTÓN CON ESTADO DE CARGA -->
+            <button 
+                type="submit" 
+                class="btn"
+                [disabled]="!loginForm.valid || isLoading"
+            >
+                @if (isLoading) {
+                    <span>Cargando...</span>
+                } @else {
+                    <span>Iniciar Sesión</span>
+                }
+            </button>
 
             <div class="register-link">
-                <p>No tienes cuenta? <a routerLink="/register">Registrate</a></p>
+                <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
             </div>
         </form>
     </div>

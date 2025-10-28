@@ -220,3 +220,171 @@ header {
 }
 
 
+/* MENÚ DE USUARIO */
+.user-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.user-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+}
+
+.user-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+}
+
+.user-icon {
+  font-size: 1.3rem;
+}
+
+.user-name {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s;
+}
+
+.user-button:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* DROPDOWN MENU */
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  min-width: 260px;
+  padding: 1rem;
+  z-index: 1000;
+  animation: slideDown 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-info {
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #667eea15, #764ba215);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.user-email {
+  font-size: 0.9rem;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.user-role {
+  font-size: 0.75rem;
+  color: #667eea;
+  margin: 0.35rem 0 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dropdown-menu hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 0.75rem 0;
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s;
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-align: left;
+  font-family: inherit;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+  background: #f8f9fa;
+  transform: translateX(5px);
+}
+
+.dropdown-menu a span,
+.dropdown-menu button span {
+  font-size: 1.2rem;
+}
+
+.logout-btn {
+  color: #e74c3c !important;
+  font-weight: 600;
+}
+
+.logout-btn:hover {
+  background: #fee !important;
+}
+
+/* Estilo para "MI CUENTA" en el menú */
+.mi-cuenta {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.mi-cuenta:hover {
+  opacity: 0.9;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .user-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .user-name {
+    display: none;
+  }
+  
+  .dropdown-menu {
+    right: -20px;
+    min-width: 220px;
+  }
+}
