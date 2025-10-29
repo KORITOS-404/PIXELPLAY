@@ -1,17 +1,66 @@
 <div class="header-container">
   <header>
     <h1 class="logo-text">PIXEL <br>PLAY</h1>
-    <p class="slogan-text">“En Pixel Play, cada partida es una nueva oportunidad para ganar.”</p>
+    <p class="slogan-text">"En Pixel Play, cada partida es una nueva oportunidad para ganar."</p>
+    
+    <!-- MOSTRAR SEGÚN SI ESTÁ AUTENTICADO O NO -->
     <div class="login-icon">
-     <a routerLink="/login"><img src="/icono-login.png" alt="Login" /></a>
+      <!-- SI NO ESTÁ AUTENTICADO: Mostrar icono de login -->
+      @if (!isAuthenticated) {
+        <a routerLink="/login">
+          <img src="/icono-login.png" alt="Login" />
+        </a>
+      }
+      
+      <!-- SI ESTÁ AUTENTICADO: Mostrar menú de usuario -->
+      @else {
+        <div class="user-menu-container">
+          <button class="user-button" (click)="toggleMenu()">
+            <span class="user-icon">👤</span>
+            <span class="user-name">{{ userData?.nombre }}</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          
+          @if (menuOpen) {
+            <div class="dropdown-menu" (clickOutside)="closeMenu()">
+              <div class="user-info">
+                <p class="user-email">{{ userData?.correo }}</p>
+                <p class="user-role">
+                  {{ userData?.rol === 'ROLE_ADMIN' ? 'Administrador' : 'Usuario' }}
+                </p>
+              </div>
+              <hr>
+              <a routerLink="/perfil" (click)="closeMenu()">
+                <span>👤</span> Mi Perfil
+              </a>
+              <a routerLink="/mis-pedidos" (click)="closeMenu()">
+                <span>📦</span> Mis Pedidos
+              </a>
+              <a routerLink="/metodos-pago" (click)="closeMenu()">
+                <span>💳</span> Métodos de Pago
+              </a>
+              <hr>
+              <button class="logout-btn" (click)="logout()">
+                <span>🚪</span> Cerrar Sesión
+              </button>
+            </div>
+          }
+        </div>
+      }
     </div>
   </header>
+  
   <nav class="menu-bar">
     <ul>
-      <li><a routerLink="/">INICIO</a></li>
+      <li><a routerLink="/home">INICIO</a></li>
       <li><a routerLink="/categorias">CATEGORIAS</a></li>
       <li><a routerLink="/nosotros">NOSOTROS</a></li>
       <li><a routerLink="/carrito">MI CARRITO</a></li>
+      
+      <!-- MOSTRAR "MI CUENTA" SOLO SI ESTÁ AUTENTICADO -->
+      @if (isAuthenticated) {
+        <li><a routerLink="/perfil" class="mi-cuenta">MI CUENTA</a></li>
+      }
     </ul>
     <div class="search-box">
       <i class="fa-solid fa-magnifying-glass"></i>

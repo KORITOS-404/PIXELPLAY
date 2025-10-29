@@ -124,3 +124,38 @@ body {
 .input-box input:focus{
     background-color: white;
 }
+
+.error-message {
+    background-color: #fee;
+    color: #c33;
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    border: 1px solid #fcc;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.login-link p {
+    color: #666;
+}
+
+.login-link a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
