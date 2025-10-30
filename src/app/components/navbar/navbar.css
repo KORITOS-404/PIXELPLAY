@@ -1,0 +1,220 @@
+.menu-bar ul li a {
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.menu-bar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+.header-container {
+  position: relative; /*se hizo el cambio de fixed a relative*/
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  background: #0a1230;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+header {
+  background-color: transparent;
+  color: white;
+  padding: 15px 0 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  width: 100%;
+  box-shadow: none;
+  position: static;
+}
+
+.logo-text {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 40px;
+  color: white;
+  margin: 0;
+  grid-column: 1;
+  text-align: left;
+  margin-left: 50px;
+}
+
+.slogan-text {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 28px;
+  color: white;
+  margin: 0;
+  grid-column: 2;
+  text-align: center;
+  max-width: 500px;
+  justify-self: center;
+}
+
+.login-icon {
+  grid-column: 3;
+  text-align: right;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-icon img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: white;
+  padding: 5px;
+  margin-right: 30px;
+  max-width: 100%;
+  height: auto;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  position: relative;
+}
+
+.login-icon:hover img {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background-color: #f0f8ff;
+  border: 3px solid #4CAF50;
+}
+
+.login-icon::before {
+  content: "Iniciar Sesión / Registro";
+  position: absolute;
+  top: -45px;
+  right: 20px;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+  z-index: 1001;
+}
+
+.login-icon:hover::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-bar {
+  background-color: #052858;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 40px;
+  flex-wrap: wrap;
+}
+
+.menu-bar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  margin-left: 0px;
+  margin-right: 32px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  flex: 1 1 auto;
+  gap: 0;
+}
+
+.menu-bar ul li {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-family: "Bayon", sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 24px;
+  padding: 0px 16px;
+  width: 420px;
+  max-width: 95vw;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.search-box input {
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  background: transparent;
+  width: 95%;
+  color: #111;
+  padding: 0.5rem 0;
+}
+.search-box input::placeholder {
+  color: #aaa;
+    font-family: "Bayon", sans-serif;
+    letter-spacing: 1px;
+}
+.search-box i {
+  color: #111;
+  font-size: 1.4rem;
+  margin-right: 10px;
+  font-weight: bold;
+  filter: drop-shadow(0 0 1px #111);
+}
+
+/* responsive */
+@media (max-width: 1800px) {
+  .menu-bar {
+    flex-wrap: wrap;
+  }
+  .menu-bar ul {
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: nowrap;
+  }
+  .menu-bar ul li {
+    white-space: nowrap;
+    font-size: 24px;
+  }
+  .search-box {
+    order: 3;
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 12px;
+    position: center;
+  }
+}
+@media (max-width: 700px) {
+  .menu-bar ul {
+    gap: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .menu-bar ul::-webkit-scrollbar { display: none; }
+  .menu-bar ul li {
+    font-size: 18px;
+  }
+  .search-box {
+    margin-top: 10px;
+  }
+}
+
+

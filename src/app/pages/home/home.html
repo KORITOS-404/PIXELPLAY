@@ -1,0 +1,224 @@
+<!-- Sección Hero - Encuentra tus Indies Favoritos -->
+<section class="hero-section">
+  <div class="hero-background">
+    <div class="hero-games">
+      <img src="/persona5.jpg" alt="Persona 5" class="hero-game-1">
+      <img src="/evilwithin.jpg" alt="Evil Within" class="hero-game-2">
+      <img src="/cuphead.png" alt="Cuphead" class="hero-game-3">
+      <img src="/balatro.png" alt="Balatro" class="hero-game-4">
+      <img src="/hollowknight.png" alt="Hollow Knight" class="hero-game-5">
+      <img src="/Omori_cover.jpg" alt="omori" class="hero-game-6">
+      <img src="/mario.jpg" alt="Mario" class="hero-game-7">
+      <img src="/rdr2.jpg" alt="Red Dead Redemption 2" class="hero-game-8">
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
+  
+  <div class="hero-content">
+    <h1 class="hero-title">ENCUENTRA<br>TUS INDIES<br>FAVORITOS</h1>
+    <button class="hero-button">AQUÍ</button>
+  </div>
+</section>
+
+<!-- Sección de Productos Destacados -->
+<section class="featured-products">
+  <h2 class="section-title">JUEGOS DESTACADOS</h2>
+  
+  <div class="products-grid">
+    <!-- Producto 1 -->
+    <div class="product-card">
+      <span class="product-badge new">NEW</span>
+      <div class="product-image">
+        <img src="/persona5.jpg" alt="Persona 5">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Persona 5</h3>
+        <div class="product-rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <div class="product-price">
+          <span class="price-current">$59.99</span>
+        </div>
+        <button class="btn-add-cart" (click)="addToCart('Persona 5', '$59.99', '/persona5.jpg')">Agregar al Carrito</button>
+      </div>
+    </div>
+
+    <!-- Producto 2 -->
+    <div class="product-card">
+      <span class="product-badge sale">SALE</span>
+      <div class="product-image">
+        <img src="/cuphead.png" alt="Cuphead">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Cuphead</h3>
+        <div class="product-rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+        <div class="product-price">
+          <span class="price-old">$29.99</span>
+          <span class="price-current">$19.99</span>
+        </div>
+        <button class="btn-add-cart" (click)="addToCart('Cuphead', '$19.99', '/cuphead.png')">Agregar al Carrito</button>
+      </div>
+    </div>
+
+    <!-- Producto 3 -->
+    <div class="product-card">
+      <div class="product-image">
+        <img src="/hollowknight.png" alt="Hollow Knight">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Hollow Knight</h3>
+        <div class="product-rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <div class="product-price">
+          <span class="price-current">$14.99</span>
+        </div>
+        <button class="btn-add-cart" (click)="addToCart('Hollow Knight', '$14.99', '/hollowknight.png')">Agregar al Carrito</button>
+      </div>
+    </div>
+
+    <!-- Producto 4 -->
+    <div class="product-card">
+      <div class="product-image">
+        <img src="/balatro.png" alt="Balatro">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Balatro</h3>
+        <div class="product-rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </div>
+        <div class="product-price">
+          <span class="price-current">$24.99</span>
+        </div>
+        <button class="btn-add-cart" (click)="addToCart('Balatro', '$24.99', '/balatro.png')">Agregar al Carrito</button>
+      </div>
+    </div>
+
+    <!-- Producto 5 -->
+    <div class="product-card">
+      <span class="product-badge sale">SALE</span>
+      <div class="product-image">
+        <img src="/Omori_cover.jpg" alt="Omori">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Omori</h3>
+        <div class="product-rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <div class="product-price">
+          <span class="price-old">$19.99</span>
+          <span class="price-current">$14.99</span>
+        </div>
+        <button class="btn-add-cart" (click)="addToCart('Omori', '$14.99', '/Omori_cover.jpg')">Agregar al Carrito</button>
+      </div>
+    </div>
+
+    <!-- Producto 6 -->
+    <div class="product-card">
+      <div class="product-image">
+        <img src="/evilwithin.jpg" alt="The Evil Within">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">The Evil Within</h3>
+        <div class="product-rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </div>
+        <div class="product-price">
+          <span class="price-current">$29.99</span>
+        </div>
+        <button class="btn-add-cart" (click)="addToCart('The Evil Within', '$29.99', '/evilwithin.jpg')">Agregar al Carrito</button>
+      </div>
+    </div>
+
+    <!-- Producto 7 -->
+    <div class="product-card">
+      <span class="product-badge new">NEW</span>
+      <div class="product-image">
+        <img src="/rdr2.jpg" alt="Red Dead Redemption 2">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Red Dead Redemption 2</h3>
+        <div class="product-rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <div class="product-price">
+          <span class="price-current">$59.99</span>
+        </div>
+        <button class="btn-add-cart" (click)="addToCart('Red Dead Redemption 2', '$59.99', '/rdr2.jpg')">Agregar al Carrito</button>
+      </div>
+    </div>
+
+    <!-- Producto 8 -->
+    <div class="product-card">
+      <div class="product-image">
+        <img src="/mario.jpg" alt="Super Mario">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Super Mario Bros</h3>
+        <div class="product-rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+        <div class="product-price">
+          <span class="price-current">$49.99</span>
+        </div>
+        <button class="btn-add-cart" (click)="addToCart('Super Mario Bros', '$49.99', '/mario.jpg')">Agregar al Carrito</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal de confirmación -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="modal-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <h3 class="modal-title">¡Producto agregado!</h3>
+    <div class="modal-product">
+      <img [src]="addedProduct.image" [alt]="addedProduct.name">
+      <div class="modal-product-info">
+        <p class="modal-product-name">{{ addedProduct.name }}</p>
+        <p class="modal-product-price">{{ addedProduct.price }}</p>
+      </div>
+    </div>
+    <p class="modal-cart-count">Productos en el carrito: <strong>{{ cartCount }}</strong></p>
+    <button class="modal-btn" (click)="closeModal()">Continuar comprando</button>
+  </div>
+</div>
