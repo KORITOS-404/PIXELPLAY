@@ -218,5 +218,18 @@ header {
     margin-top: 10px;
   }
 }
+.admin-btn {
+  background: #ff6b6b;
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 20px;
+}
 
+.admin-btn:hover {
+  background: #ff5252;
+  transform: scale(1.05);
+}
 

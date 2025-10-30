@@ -18,13 +18,13 @@ import { CrudUsuarios } from './pages/crud-usuarios/crud-usuarios';
     {path: 'nosotros',component:Nosotros},
     {path: 'categorias',component:Categorias},
     {path:'carrito',component:Carrito},
-    {path:'', component:CrudPrincipal, children: [
+    {path:'admin', component:CrudPrincipal, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: CrudDashboard },
       { path: 'charts', component: CrudMetricas },
       { path: 'usuarios', component: CrudUsuarios } 
 
-    ]
+            ]
     }
     
   ];

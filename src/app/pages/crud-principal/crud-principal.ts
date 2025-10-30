@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-crud-principal', // ← Cambié de 'app-layout' a 'app-crud-principal'
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './crud-principal.html',
@@ -24,3 +24,4 @@ export class CrudPrincipal implements OnInit {
     localStorage.setItem('sidebar-toggle', this.isSidebarToggled.toString());
   }
 }
+

@@ -1,7 +1,7 @@
 <div [class.sidebar-toggled]="isSidebarToggled">
   <!-- Top Navigation -->
   <nav class="top-navbar">
-    <a class="navbar-brand" routerLink="/dashboard">PixelPlay Admin</a>
+    <a class="navbar-brand" routerLink="/admin/dashboard">PixelPlay Admin</a>
     <button class="sidebar-toggle" (click)="toggleSidebar()">
       <i class="fas fa-bars"></i>
     </button>
@@ -20,6 +20,7 @@
           <li><a href="#">Configuración</a></li>
           <li><a href="#">Registro de actividad</a></li>
           <li><hr /></li>
+          <li><a routerLink="/home">Volver a la tienda</a></li>
           <li><a href="#">Cerrar sesión</a></li>
         </ul>
       </li>
@@ -32,22 +33,24 @@
       <div class="sidebar-menu">
         <div class="menu-section">
           <div class="menu-heading">Principal</div>
-          <a class="menu-link" routerLink="/dashboard" routerLinkActive="active">
+          <a class="menu-link" routerLink="/admin/dashboard" routerLinkActive="active">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
           <div class="menu-heading">Gestión</div>
-          <a class="menu-link" routerLink="/products" routerLinkActive="active">
-            <i class="fas fa-box"></i>
-            <span>Productos</span>
-          </a>
-          <a class="menu-link" routerLink="/charts" routerLinkActive="active">
+          <a class="menu-link" routerLink="/admin/charts" routerLinkActive="active">
             <i class="fas fa-chart-area"></i>
-            <span>Gráficos</span>
+            <span>Métricas</span>
           </a>
-          <a class="menu-link" routerLink="/users" routerLinkActive="active">
-            <i class="fas fa-table"></i>
+          <a class="menu-link" routerLink="/admin/usuarios" routerLinkActive="active">
+            <i class="fas fa-users"></i>
             <span>Usuarios</span>
+          </a>
+          <!-- Puedes agregar más secciones CRUD aquí -->
+          <div class="menu-heading">Tienda</div>
+          <a class="menu-link" routerLink="/categorias">
+            <i class="fas fa-store"></i>
+            <span>Ver Tienda</span>
           </a>
         </div>
       </div>
@@ -68,6 +71,8 @@
             <a href="#">Política de Privacidad</a>
             <span>&middot;</span>
             <a href="#">Términos y Condiciones</a>
+            <span>&middot;</span>
+            <a routerLink="/home">Volver a PixelPlay</a>
           </div>
         </div>
       </footer>
