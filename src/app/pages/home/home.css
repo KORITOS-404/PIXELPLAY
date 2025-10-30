@@ -7,7 +7,14 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(26, 40, 80, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(76, 175, 80, 0.2) 0%, transparent 30%),
+    linear-gradient(135deg, #0a1230 0%, #1a2850 50%, #4CAF50 100%);
 }
+
+/* Removed background animation for better FPS */
 
 .hero-background {
   position: absolute;
@@ -16,6 +23,26 @@
   width: 100%;
   height: 100%;
   z-index: 1;
+}
+
+/* Partículas optimizadas */
+.hero-background::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #4CAF50, transparent),
+    radial-gradient(1px 1px at 90px 40px, #FFC107, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: starsMove 30s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes starsMove {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-100px); }
 }
 
 .hero-games {
@@ -33,14 +60,35 @@
   height: 300px;
   width: 200px;
   object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease;
+  border-radius: 15px;
+  box-shadow: 
+    0 8px 20px rgba(0,0,0,0.4),
+    0 0 30px rgba(76, 175, 80, 0.3),
+    inset 0 0 0 2px rgba(76, 175, 80, 0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  filter: brightness(0.9) contrast(1.1);
 }
 
 .hero-games img:hover {
-  transform: translateY(-10px) scale(1.05);
+  transform: translateY(-15px) scale(1.08);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.6),
+    0 0 50px rgba(76, 175, 80, 0.8),
+    0 0 100px rgba(76, 175, 80, 0.4),
+    inset 0 0 0 3px rgba(76, 175, 80, 0.6);
+  filter: brightness(1.1) contrast(1.2) saturate(1.3);
 }
+
+/* Glow individual para cada juego */
+.hero-game-1:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 60px #ff3366, 0 0 120px rgba(255, 51, 102, 0.4); }
+.hero-game-2:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 60px #8b0000, 0 0 120px rgba(139, 0, 0, 0.4); }
+.hero-game-3:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 60px #ffa500, 0 0 120px rgba(255, 165, 0, 0.4); }
+.hero-game-4:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 60px #8a2be2, 0 0 120px rgba(138, 43, 226, 0.4); }
+.hero-game-5:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 60px #4682b4, 0 0 120px rgba(70, 130, 180, 0.4); }
+.hero-game-6:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 60px #ffc0cb, 0 0 120px rgba(255, 192, 203, 0.4); }
+.hero-game-7:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 60px #ff0000, 0 0 120px rgba(255, 0, 0, 0.4); }
+.hero-game-8:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 60px #8b4513, 0 0 120px rgba(139, 69, 19, 0.4); }
 
 .hero-game-1 {
   animation: float 3s ease-in-out infinite;
@@ -102,29 +150,77 @@
   font-size: 48px;
   line-height: 1.1;
   margin: 0 0 30px 0;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
   letter-spacing: 2px;
+  color: white;
+  text-shadow: 
+    0 0 15px rgba(76, 175, 80, 0.8),
+    2px 2px 8px rgba(0,0,0,0.9);
+  position: relative;
 }
 
 .hero-button {
-  background: linear-gradient(135deg, #4CAF50, #45a049);
+  background: linear-gradient(45deg, #4CAF50, #45a049, #4CAF50, #FFC107);
+  background-size: 300% 300%;
   color: white;
   border: none;
-  padding: 15px 40px;
+  padding: 18px 45px;
   font-size: 20px;
   font-weight: bold;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  transition: all 0.4s ease;
+  box-shadow: 
+    0 8px 25px rgba(76, 175, 80, 0.4),
+    0 0 30px rgba(76, 175, 80, 0.3),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.1);
   font-family: 'Bayon', sans-serif;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  animation: buttonPulse 6s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+  0%, 100% { 
+    background-position: 0% 50%;
+    box-shadow: 
+      0 8px 25px rgba(76, 175, 80, 0.4),
+      0 0 30px rgba(76, 175, 80, 0.3);
+  }
+  50% { 
+    background-position: 100% 50%;
+    box-shadow: 
+      0 12px 35px rgba(76, 175, 80, 0.6),
+      0 0 50px rgba(76, 175, 80, 0.5);
+  }
+}
+
+.hero-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
 }
 
 .hero-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.5);
-  background: linear-gradient(135deg, #5CBF60, #4CAF50);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 
+    0 20px 50px rgba(76, 175, 80, 0.8),
+    0 0 80px rgba(76, 175, 80, 0.6),
+    0 0 120px rgba(255, 193, 7, 0.4);
+  background: linear-gradient(45deg, #5CBF60, #4CAF50, #5CBF60, #FFD54F);
+}
+
+.hero-button:hover::before {
+  opacity: 1;
+  transform: rotate(45deg) translate(50%, 50%);
 }
 
 /* Responsive */
@@ -157,16 +253,47 @@
   background: linear-gradient(180deg, #0a1230 0%, #1a2850 100%);
   padding: 80px 20px;
   min-height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Partículas optimizadas para productos */
+.featured-products::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 10% 20%, #4CAF50, transparent),
+    radial-gradient(1px 1px at 80% 60%, #FFC107, transparent);
+  background-size: 300px 200px;
+  opacity: 0.3;
+  z-index: 1;
 }
 
 .section-title {
   text-align: center;
-  color: white;
   font-family: 'Luckiest Guy', cursive;
-  font-size: 42px;
+  font-size: 48px;
   margin-bottom: 50px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-  letter-spacing: 3px;
+  letter-spacing: 4px;
+  color: white;
+  text-shadow: 
+    0 0 20px rgba(76, 175, 80, 0.8),
+    0 0 40px rgba(76, 175, 80, 0.6),
+    3px 3px 10px rgba(0,0,0,0.9);
+  position: relative;
+}
+
+@keyframes sectionTitleRainbow {
+  0%, 100% { 
+    background-position: 0% 50%;
+  }
+  50% { 
+    background-position: 100% 50%;
+  }
 }
 
 .products-grid {
@@ -176,45 +303,80 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 40px;
+  position: relative;
+  z-index: 2;
 }
 
 .product-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
   overflow: hidden;
-  transition: all 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.5s ease;
+  border: 2px solid rgba(76, 175, 80, 0.2);
   position: relative;
+  backdrop-filter: blur(10px);
 }
 
+/* Removed heavy border animation for optimization */
+
 .product-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3);
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 
+    0 25px 60px rgba(76, 175, 80, 0.4),
+    0 0 40px rgba(76, 175, 80, 0.3),
+    0 0 80px rgba(76, 175, 80, 0.2);
   border-color: #4CAF50;
 }
+
+/* Optimized hover effect */
 
 .product-badge {
   position: absolute;
   top: 15px;
   right: 15px;
-  background: #ff4444;
+  background: linear-gradient(45deg, #ff4444, #ff6b6b);
   color: white;
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 11px;
   font-weight: bold;
   z-index: 10;
-  box-shadow: 0 2px 10px rgba(255, 68, 68, 0.5);
+  box-shadow: 
+    0 4px 15px rgba(255, 68, 68, 0.6),
+    0 0 20px rgba(255, 68, 68, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  backdrop-filter: blur(10px);
 }
 
+/* Removed badgeGlow animation for optimization */
+
 .product-badge.new {
-  background: #4CAF50;
-  box-shadow: 0 2px 10px rgba(76, 175, 80, 0.5);
+  background: linear-gradient(45deg, #4CAF50, #66BB6A);
+  box-shadow: 
+    0 4px 15px rgba(76, 175, 80, 0.6),
+    0 0 20px rgba(76, 175, 80, 0.4);
+}
+
+.product-badge.new:hover,
+.product-badge.new:focus {
+  box-shadow: 
+    0 6px 25px rgba(76, 175, 80, 0.8),
+    0 0 40px rgba(76, 175, 80, 0.6);
 }
 
 .product-badge.sale {
-  background: #ff9800;
-  box-shadow: 0 2px 10px rgba(255, 152, 0, 0.5);
+  background: linear-gradient(45deg, #ff9800, #FFB74D);
+  box-shadow: 
+    0 4px 15px rgba(255, 152, 0, 0.6),
+    0 0 20px rgba(255, 152, 0, 0.4);
+}
+
+.product-badge.sale:hover,
+.product-badge.sale:focus {
+  box-shadow: 
+    0 6px 25px rgba(255, 152, 0, 0.8),
+    0 0 40px rgba(255, 152, 0, 0.6);
 }
 
 .product-image {
@@ -252,7 +414,13 @@
   margin: 0 0 10px 0;
   font-family: 'Bayon', sans-serif;
   letter-spacing: 1px;
+  text-shadow: 
+    2px 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 15px rgba(76, 175, 80, 0.8);
+  filter: drop-shadow(0 0 10px rgba(76, 175, 80, 0.7));
 }
+
+/* Removed productTitleGlow animation for optimization */
 
 .product-rating {
   color: #ffd700;
@@ -278,31 +446,74 @@
 }
 
 .price-current {
-  color: #4CAF50;
+  background: linear-gradient(45deg, #4CAF50, #66BB6A, #4CAF50);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 24px;
   font-weight: bold;
   font-family: 'Bayon', sans-serif;
+  text-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+  filter: drop-shadow(0 0 12px rgba(76, 175, 80, 0.7));
 }
+
+/* Removed priceGlow animation for optimization */
 
 .btn-add-cart {
   width: 100%;
-  background: linear-gradient(135deg, #4CAF50, #45a049);
+  background: linear-gradient(45deg, #4CAF50, #45a049, #4CAF50, #66BB6A);
+  background-size: 300% 300%;
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 15px 20px;
   font-size: 16px;
   font-weight: bold;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   font-family: 'Bayon', sans-serif;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  animation: btnGradientShift 4s ease-in-out infinite;
+  box-shadow: 
+    0 4px 15px rgba(76, 175, 80, 0.4),
+    0 0 20px rgba(76, 175, 80, 0.2);
+}
+
+/* Simplified button animation */
+@keyframes btnGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.btn-add-cart::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
 }
 
 .btn-add-cart:hover {
-  background: linear-gradient(135deg, #5CBF60, #4CAF50);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+  background: linear-gradient(45deg, #5CBF60, #4CAF50, #5CBF60, #81C784);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(76, 175, 80, 0.6),
+    0 0 50px rgba(76, 175, 80, 0.4),
+    0 0 80px rgba(76, 175, 80, 0.2);
+}
+
+.btn-add-cart:hover::before {
+  opacity: 1;
+  transform: rotate(45deg) translate(50%, 50%);
 }
 
 /* Responsive para productos */
