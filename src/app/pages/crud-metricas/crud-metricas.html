@@ -1,0 +1,52 @@
+<div class="charts-container">
+  <h1 class="page-title">Gráficos</h1>
+  <nav class="breadcrumb">
+    <a routerLink="/dashboard">Dashboard</a>
+    <span>&gt;</span>
+    <span class="breadcrumb-item active">Gráficos</span>
+  </nav>
+
+  <div class="info-card">
+    <p>
+      Esta sección muestra gráficos de métricas de inventario. 
+      Puedes integrar Chart.js para visualizaciones personalizadas.
+    </p>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <i class="fas fa-chart-area"></i>
+        Gráfico de Área
+      </div>
+      <div class="chart-body">
+        <canvas id="areaChart"></canvas>
+        <p class="placeholder-text">Aquí va el gráfico de área</p>
+      </div>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-card">
+        <div class="chart-header">
+          <i class="fas fa-chart-bar"></i>
+          Gráfico de Barras
+        </div>
+        <div class="chart-body">
+          <canvas id="barChart"></canvas>
+          <p class="placeholder-text">Aquí va el gráfico de barras</p>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <i class="fas fa-chart-pie"></i>
+          Gráfico Circular
+        </div>
+        <div class="chart-body">
+          <canvas id="pieChart"></canvas>
+          <p class="placeholder-text">Aquí va el gráfico circular</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

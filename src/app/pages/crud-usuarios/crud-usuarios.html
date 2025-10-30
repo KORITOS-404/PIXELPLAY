@@ -1,0 +1,61 @@
+<div class="users-container">
+  <h1 class="page-title">Usuarios Registrados</h1>
+  <nav class="breadcrumb">
+    <a routerLink="/dashboard">Dashboard</a>
+    <span>&gt;</span>
+    <span class="breadcrumb-item active">Usuarios</span>
+  </nav>
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i> Cargando...
+  </div>
+
+  <!-- Mensaje de error -->
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="table-card">
+    <div class="table-header">
+      <i class="fas fa-table"></i>
+      Tabla de Usuarios
+    </div>
+    <div class="table-body">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>           <!-- NUEVO -->
+            <th>Correo</th>              <!-- RENOMBRADO -->
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Roles</th>               <!-- NUEVO -->
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of usuarios">
+            <td>{{ user.idUsuario }}</td>
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.apellido }}</td>                    <!-- NUEVO -->
+            <td>{{ user.correo }}</td>                      <!-- RENOMBRADO -->
+            <td>{{ user.telefono || 'N/A' }}</td>
+            <td>{{ user.direccion || 'N/A' }}</td>
+            <td>                                            <!-- NUEVO -->
+              <span *ngFor="let role of user.roles" class="role-badge">
+                {{ role.nombre }}
+              </span>
+            </td>
+            <td>
+              <button class="btn-edit">
+                <i class="fas fa-edit"></i> Ver
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

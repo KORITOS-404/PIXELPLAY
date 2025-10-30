@@ -1,34 +1,50 @@
-import { inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Producto, PageResponse } from '../models/Producto';
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductoService {
+  private apiUrl = `${environment.apiUrl}/productos`;
 
-const http = inject(HttpClient);
-const API_URL = 'http://localhost:8080/productos';
+  constructor(private http: HttpClient) {}
 
-export interface Producto {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  stock: number;
-}
+  // Listar productos activos con paginación
+  listarActivos(page: number = 0, size: number = 10): Observable<PageResponse<Producto>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<PageResponse<Producto>>(this.apiUrl, { params });
+  }
 
-export async function getProductos(): Promise<Producto[]> {
-  return await firstValueFrom(http.get<Producto[]>(API_URL));
-}
+  // Obtener producto por ID
+  obtenerPorId(id: number): Observable<Producto> {
+    return this.http.get<Producto>(`${this.apiUrl}/${id}`);
+  }
 
-export async function getProducto(id: number): Promise<Producto> {
-  return await firstValueFrom(http.get<Producto>(`${API_URL}/${id}`));
-}
+  // Buscar productos por palabra clave
+  buscar(keyword: string, page: number = 0, size: number = 10): Observable<PageResponse<Producto>> {
+    const params = new HttpParams()
+      .set('keyword', keyword)
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<PageResponse<Producto>>(`${this.apiUrl}/buscar`, { params });
+  }
 
-export async function crearProducto(data: Producto): Promise<Producto> {
-  return await firstValueFrom(http.post<Producto>(API_URL, data));
-}
+  // Crear nuevo producto
+  crear(producto: Producto): Observable<Producto> {
+    return this.http.post<Producto>(this.apiUrl, producto);
+  }
 
-export async function actualizarProducto(id: number, data: Producto): Promise<Producto> {
-  return await firstValueFrom(http.put<Producto>(`${API_URL}/${id}`, data));
-}
+  // Actualizar producto existente
+  actualizar(id: number, producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(`${this.apiUrl}/${id}`, producto);
+  }
 
-export async function eliminarProducto(id: number): Promise<void> {
-  await firstValueFrom(http.delete<void>(`${API_URL}/${id}`));
+  // Eliminar producto (soft delete)
+  eliminar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

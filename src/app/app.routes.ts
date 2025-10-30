@@ -5,6 +5,10 @@ import { Register } from './pages/register/register';
 import { Nosotros } from './pages/nosotros/nosotros';
 import { Categorias } from './pages/categorias/categorias';
 import { Carrito } from './pages/carrito/carrito';
+import { CrudPrincipal } from './pages/crud-principal/crud-principal';
+import { CrudDashboard } from './pages/crud-dashboard/crud-dashboard';
+import { CrudMetricas } from './pages/crud-metricas/crud-metricas';
+import { CrudUsuarios } from './pages/crud-usuarios/crud-usuarios';
 
   export const routes: Routes = [
     { path: '', component: Home },
@@ -13,5 +17,14 @@ import { Carrito } from './pages/carrito/carrito';
     {path:'register',component:Register},
     {path: 'nosotros',component:Nosotros},
     {path: 'categorias',component:Categorias},
-    {path:'carrito',component:Carrito}
+    {path:'carrito',component:Carrito},
+    {path:'', component:CrudPrincipal, children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: CrudDashboard },
+      { path: 'charts', component: CrudMetricas },
+      { path: 'usuarios', component: CrudUsuarios } 
+
+    ]
+    }
+    
   ];

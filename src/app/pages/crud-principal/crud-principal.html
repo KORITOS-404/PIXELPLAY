@@ -1,0 +1,76 @@
+<div [class.sidebar-toggled]="isSidebarToggled">
+  <!-- Top Navigation -->
+  <nav class="top-navbar">
+    <a class="navbar-brand" routerLink="/dashboard">PixelPlay Admin</a>
+    <button class="sidebar-toggle" (click)="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <form class="search-form">
+      <div class="search-group">
+        <input type="text" placeholder="Buscar..." />
+        <button type="button"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+    <ul class="user-menu">
+      <li class="user-item">
+        <a href="#" class="user-link">
+          <i class="fas fa-user"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Configuración</a></li>
+          <li><a href="#">Registro de actividad</a></li>
+          <li><hr /></li>
+          <li><a href="#">Cerrar sesión</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Sidebar Navigation -->
+  <div class="layout-container">
+    <nav class="sidebar">
+      <div class="sidebar-menu">
+        <div class="menu-section">
+          <div class="menu-heading">Principal</div>
+          <a class="menu-link" routerLink="/dashboard" routerLinkActive="active">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+          <div class="menu-heading">Gestión</div>
+          <a class="menu-link" routerLink="/products" routerLinkActive="active">
+            <i class="fas fa-box"></i>
+            <span>Productos</span>
+          </a>
+          <a class="menu-link" routerLink="/charts" routerLinkActive="active">
+            <i class="fas fa-chart-area"></i>
+            <span>Gráficos</span>
+          </a>
+          <a class="menu-link" routerLink="/users" routerLinkActive="active">
+            <i class="fas fa-table"></i>
+            <span>Usuarios</span>
+          </a>
+        </div>
+      </div>
+      <div class="sidebar-footer">
+        <div class="footer-text">Conectado como:</div>
+        <div>PixelPlay Admin</div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <footer class="page-footer">
+        <div class="footer-container">
+          <div class="footer-links">
+            <a href="#">Política de Privacidad</a>
+            <span>&middot;</span>
+            <a href="#">Términos y Condiciones</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>

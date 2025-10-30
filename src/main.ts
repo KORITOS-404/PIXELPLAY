@@ -1,6 +1,6 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { App } from './app/app';
-
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:4200/api',
+  appName: 'PixelPlay',
+  version: '1.0.0'
+};

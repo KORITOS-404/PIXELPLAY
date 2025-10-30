@@ -1,34 +1,39 @@
-import { inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Usuario } from '../models/Usuario';
 
-const http = inject(HttpClient);
-const API_URL = 'http://localhost:8080/usuarios';
+@Injectable({
+  providedIn: 'root'
+})
+export class UsuarioService {
+  private apiUrl = `${environment.apiUrl}/usuarios`;
 
-export interface Usuario {
-  id: number;
-  nombre: string;
-  apellido: string;
-  correo: string;
-  telefono: string;
-}
+  constructor(private http: HttpClient) {}
 
-export async function getUsuarios(): Promise<Usuario[]> {
-  return await firstValueFrom(http.get<Usuario[]>(API_URL));
-}
+  // Listar todos los usuarios
+  listar(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.apiUrl);
+  }
 
-export async function getUsuario(id: number): Promise<Usuario> {
-  return await firstValueFrom(http.get<Usuario>(`${API_URL}/${id}`));
-}
+  // Obtener usuario por ID
+  obtenerPorId(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
+  }
 
-export async function crearUsuario(data: Usuario): Promise<Usuario> {
-  return await firstValueFrom(http.post<Usuario>(API_URL, data));
-}
+  // Crear nuevo usuario
+  crear(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.apiUrl, usuario);
+  }
 
-export async function actualizarUsuario(id: number, data: Usuario): Promise<Usuario> {
-  return await firstValueFrom(http.put<Usuario>(`${API_URL}/${id}`, data));
-}
+  // Actualizar usuario existente
+  actualizar(id: number, usuario: Usuario): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/${id}`, usuario);
+  }
 
-export async function eliminarUsuario(id: number): Promise<void> {
-  await firstValueFrom(http.delete<void>(`${API_URL}/${id}`));
+  // Eliminar usuario
+  eliminar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
