@@ -1,1 +1,330 @@
-<p>categorias works!</p>
+<!-- Sección Hero - Categorías -->
+<section class="hero-section">
+  <div class="hero-background">
+    <!-- Partículas estáticas de fondo -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <div class="hero-overlay"></div>
+  </div>
+  
+  <div class="hero-content">
+    <h1 class="hero-title">EXPLORA POR<br><span class="glitch" data-glitch="CATEGORÍAS">CATEGORÍAS</span></h1>
+    <p class="hero-subtitle">
+      <span class="typewriter">Encuentra tu plataforma gaming perfecta</span>
+      <span class="cursor">|</span>
+    </p>
+  </div>
+</section>
+
+<!-- Sección PC Gaming -->
+<section class="category-section pc-section">
+  <div class="container">
+    <div class="category-header">
+      <h2 class="category-title">PC CARDS</h2>
+      <p class="category-description">Potencia tu setup con las mejores tarjetas gráficas y componentes</p>
+    </div>
+    
+    <div class="products-carousel">
+      <button class="carousel-btn prev-btn" (click)="scrollCarousel('pc', 'left')">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="carousel-container" id="pc-carousel">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="balatro.png" alt="Balatro">
+            <div class="product-badge">NUEVO</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">BALATRO</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 45.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="cuphead.png" alt="Cuphead">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">CUPHEAD</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 60.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="hollowknight.png" alt="Hollow Knight">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">HOLLOW KNIGHT</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 50.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src=" Omori_cover.jpg" alt="Omori">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">OMORI</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 70.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+      </div>
+      
+      <button class="carousel-btn next-btn" (click)="scrollCarousel('pc', 'right')">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Sección PlayStation 5 -->
+<section class="category-section ps5-section">
+  <div class="container">
+    <div class="category-header">
+      <h2 class="category-title">PLAYSTATION 5</h2>
+      <p class="category-description">Experimenta la nueva generación de gaming con PS5</p>
+    </div>
+    
+    <div class="products-carousel">
+      <button class="carousel-btn prev-btn" (click)="scrollCarousel('ps5', 'left')">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="carousel-container" id="ps5-carousel">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="evilwithin.jpg" alt="The Evil Within">
+            <div class="product-badge">EXCLUSIVO</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">THE EVIL WITHIN</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 120.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="persona5.jpg" alt="Persona 5">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">PERSONA 5 ROYAL</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 180.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="rdr2.jpg" alt="Red Dead Redemption 2">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">RED DEAD REDEMPTION 2</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 220.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="silksong.jpg" alt="Hollow Knight Silksong">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">HOLLOW KNIGHT: SILKSONG</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 65.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+      </div>
+      
+      <button class="carousel-btn next-btn" (click)="scrollCarousel('ps5', 'right')">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Sección Nintendo Switch -->
+<section class="category-section nintendo-section">
+  <div class="container">
+    <div class="category-header">
+      <h2 class="category-title">NINTENDO SWITCH</h2>
+      <p class="category-description">Diversión portable y familiar con Nintendo Switch</p>
+    </div>
+    
+    <div class="products-carousel">
+      <button class="carousel-btn prev-btn" (click)="scrollCarousel('nintendo', 'left')">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="carousel-container" id="nintendo-carousel">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="mario.jpg" alt="Super Mario Odyssey">
+            <div class="product-badge">TOP</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">SUPER MARIO ODYSSEY</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 280.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="mario.jpg" alt="juego de mario">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">juego de mario</h3>
+            <div class="product-rating">⭐</div>
+            <div class="product-price">S/ 00.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="zelda.jpg" alt="Juego de Zelda">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">juego de zelda</h3>
+            <div class="product-rating">⭐</div>
+            <div class="product-price">S/ 00.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="kirby.jpg" alt="Juego de Kirby">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">juego de kirby</h3>
+            <div class="product-rating">⭐</div>
+            <div class="product-price">S/ 00.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+      </div>
+      
+      <button class="carousel-btn next-btn" (click)="scrollCarousel('nintendo', 'right')">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Sección Xbox -->
+<section class="category-section xbox-section">
+  <div class="container">
+    <div class="category-header">
+      <h2 class="category-title">XBOX SERIES</h2>
+      <p class="category-description">Power your dreams con Xbox Series X|S</p>
+    </div>
+    
+    <div class="products-carousel">
+      <button class="carousel-btn prev-btn" (click)="scrollCarousel('xbox', 'left')">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="carousel-container" id="xbox-carousel">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="evilwithin.jpg" alt="The Evil Within">
+            <div class="product-badge">EXCLUSIVO</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">THE EVIL WITHIN</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 120.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="persona5.jpg" alt="Persona 5">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">PERSONA 5 ROYAL</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 180.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="rdr2.jpg" alt="Red Dead Redemption 2">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">RED DEAD REDEMPTION 2</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 220.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="silksong.jpg" alt="Hollow Knight Silksong">
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">HOLLOW KNIGHT: SILKSONG</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 65.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+      </div>
+      
+      <button class="carousel-btn next-btn" (click)="scrollCarousel('xbox', 'right')">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Modal de confirmación -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h3 class="modal-title">¡Producto agregado!</h3>
+    <div class="modal-product">
+      <img [src]="addedProduct.image" [alt]="addedProduct.name">
+      <div class="modal-product-info">
+        <p class="modal-product-name">{{ addedProduct.name }}</p>
+        <p class="modal-product-price">{{ addedProduct.price }}</p>
+      </div>
+    </div>
+    <p class="modal-cart-count">Productos en el carrito: <strong>{{ cartCount }}</strong></p>
+    <button class="modal-btn" (click)="closeModal()">Continuar comprando</button>
+  </div>
+</div>

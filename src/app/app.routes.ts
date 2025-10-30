@@ -3,8 +3,8 @@ import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { Nosotros } from './pages/nosotros/nosotros';
-import { Categorias } from './pages/categorias/categorias';
 import { Carrito } from './pages/carrito/carrito';
+import { CategoriasComponent } from './pages/categorias/categorias';
 
   export const routes: Routes = [
     { path: '', component: Home },
@@ -12,6 +12,6 @@ import { Carrito } from './pages/carrito/carrito';
     { path:'login',component:Login},
     {path:'register',component:Register},
     {path: 'nosotros',component:Nosotros},
-    {path: 'categorias',component:Categorias},
+    {path: 'categorias',component:CategoriasComponent},
     {path:'carrito',component:Carrito}
   ];
