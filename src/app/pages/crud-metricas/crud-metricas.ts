@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy , OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './crud-metricas.html',
-  styleUrls: ['./crud-metricas.css']
+  styleUrls: ['./crud-metricas.css'] ,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CrudMetricas implements OnInit {
   ngOnInit(): void {

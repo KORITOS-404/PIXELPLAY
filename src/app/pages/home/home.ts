@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component , ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.html',
-  styleUrl: './home.css'
-  ,imports: [CommonModule]
-})
+  styleUrl: './home.css',
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush })
 export class Home {
   juegos = [
     {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy , OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario';
@@ -9,7 +9,8 @@ import { Usuario } from '../../models/Usuario';
   standalone: true,
   imports: [CommonModule,FormsModule],
   templateUrl: './crud-usuarios.html',
-  styleUrls: ['./crud-usuarios.css']
+  styleUrls: ['./crud-usuarios.css'] ,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CrudUsuarios implements OnInit {
   usuarios: Usuario[] = [];

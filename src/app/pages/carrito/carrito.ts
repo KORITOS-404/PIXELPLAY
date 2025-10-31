@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-carrito',
-  imports: [],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './carrito.html',
-  styleUrl: './carrito.css'
+  styleUrls: ['./carrito.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush // ← AGREGAR ESTA LÍNEA
 })
-export class Carrito {
-}
+export class Carrito {}

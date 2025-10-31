@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy , OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductoService } from '../../services/product';
@@ -9,7 +9,8 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './crud-dashboard.html',
-  styleUrls: ['./crud-dashboard.css']
+  styleUrls: ['./crud-dashboard.css'] ,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CrudDashboard implements OnInit {
   productos: Producto[] = [];
