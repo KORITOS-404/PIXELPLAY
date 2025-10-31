@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-crud-principal', // ← Cambié de 'app-layout' a 'app-crud-principal'
+  selector: 'app-crud-principal',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './crud-principal.html',
-  styleUrls: ['./crud-principal.css']
+  styleUrls: ['./crud-principal.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CrudPrincipal implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+  
   isSidebarToggled = false;
 
-  ngOnInit(): void {
-    const savedState = localStorage.getItem('sidebar-toggle');
-    if (savedState === 'true') {
-      this.isSidebarToggled = true;
-    }
+  ngOnInit() {
+    this.cdr.markForCheck();
   }
 
-  toggleSidebar(): void {
+  toggleSidebar() {
     this.isSidebarToggled = !this.isSidebarToggled;
-    localStorage.setItem('sidebar-toggle', this.isSidebarToggled.toString());
+    
+    // Debug para verificar el estado
+    console.log('Sidebar collapsed:', this.isSidebarToggled);
+    
+    // Forzar detección de cambios
+    this.cdr.markForCheck();
   }
 }
-

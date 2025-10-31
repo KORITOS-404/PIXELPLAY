@@ -1,81 +1,118 @@
-<div [class.sidebar-toggled]="isSidebarToggled">
-  <!-- Top Navigation -->
-  <nav class="top-navbar">
-    <a class="navbar-brand" routerLink="/admin/dashboard">PixelPlay Admin</a>
-    <button class="sidebar-toggle" (click)="toggleSidebar()">
-      <i class="fas fa-bars"></i>
-    </button>
-    <form class="search-form">
-      <div class="search-group">
-        <input type="text" placeholder="Buscar..." />
-        <button type="button"><i class="fas fa-search"></i></button>
-      </div>
-    </form>
-    <ul class="user-menu">
-      <li class="user-item">
-        <a href="#" class="user-link">
-          <i class="fas fa-user"></i>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Configuración</a></li>
-          <li><a href="#">Registro de actividad</a></li>
-          <li><hr /></li>
-          <li><a routerLink="/home">Volver a la tienda</a></li>
-          <li><a href="#">Cerrar sesión</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-
-  <!-- Sidebar Navigation -->
-  <div class="layout-container">
-    <nav class="sidebar">
-      <div class="sidebar-menu">
-        <div class="menu-section">
-          <div class="menu-heading">Principal</div>
-          <a class="menu-link" routerLink="/admin/dashboard" routerLinkActive="active">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
-          </a>
-          <div class="menu-heading">Gestión</div>
-          <a class="menu-link" routerLink="/admin/charts" routerLinkActive="active">
-            <i class="fas fa-chart-area"></i>
-            <span>Métricas</span>
-          </a>
-          <a class="menu-link" routerLink="/admin/usuarios" routerLinkActive="active">
-            <i class="fas fa-users"></i>
-            <span>Usuarios</span>
-          </a>
-          <!-- Puedes agregar más secciones CRUD aquí -->
-          <div class="menu-heading">Tienda</div>
-          <a class="menu-link" routerLink="/categorias">
-            <i class="fas fa-store"></i>
-            <span>Ver Tienda</span>
-          </a>
-        </div>
-      </div>
-      <div class="sidebar-footer">
-        <div class="footer-text">Conectado como:</div>
-        <div>PixelPlay Admin</div>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="main-content">
-      <main>
-        <router-outlet></router-outlet>
-      </main>
-      <footer class="page-footer">
-        <div class="footer-container">
-          <div class="footer-links">
-            <a href="#">Política de Privacidad</a>
-            <span>&middot;</span>
-            <a href="#">Términos y Condiciones</a>
-            <span>&middot;</span>
-            <a routerLink="/home">Volver a PixelPlay</a>
-          </div>
-        </div>
-      </footer>
+<div class="crud-admin-layout" [class.sidebar-collapsed]="isSidebarToggled">
+  
+  <!-- Header del CRUD -->
+  <header class="crud-header">
+    <div class="header-left">
+      <button class="sidebar-toggle-btn" (click)="toggleSidebar()" type="button">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h1 class="crud-title">PixelPlay Admin</h1>
     </div>
-  </div>
+    
+    <div class="header-center">
+      <div class="search-container">
+        <input type="text" placeholder="Buscar en el sistema..." class="search-input" />
+        <button type="button" class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="header-right">
+      <div class="user-menu">
+        <button class="user-btn" type="button">
+          <i class="fas fa-user"></i>
+        </button>
+        <div class="user-dropdown">
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-cog"></i>
+            <span>Configuración</span>
+          </a>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-history"></i>
+            <span>Registro de actividad</span>
+          </a>
+          <hr class="dropdown-divider" />
+          <a routerLink="/home" class="dropdown-item">
+            <i class="fas fa-store"></i>
+            <span>Volver a la tienda</span>
+          </a>
+          <a href="#" class="dropdown-item logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Cerrar sesión</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar del CRUD -->
+  <aside class="crud-sidebar">
+    <div class="sidebar-content">
+      <nav class="sidebar-nav">
+        
+        <div class="nav-section">
+          <h3 class="nav-section-title">Principal</h3>
+          <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active" data-tooltip="Dashboard">
+            <i class="fas fa-tachometer-alt"></i>
+            <span class="nav-text">Dashboard</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <h3 class="nav-section-title">Gestión</h3>
+          <a class="nav-link" routerLink="/admin/charts" routerLinkActive="active" data-tooltip="Métricas">
+            <i class="fas fa-chart-area"></i>
+            <span class="nav-text">Métricas</span>
+          </a>
+          <a class="nav-link" routerLink="/admin/usuarios" routerLinkActive="active" data-tooltip="Usuarios">
+            <i class="fas fa-users"></i>
+            <span class="nav-text">Usuarios</span>
+          </a>
+          <a class="nav-link" routerLink="/admin/productos" routerLinkActive="active" data-tooltip="Productos">
+            <i class="fas fa-box"></i>
+            <span class="nav-text">Productos</span>
+          </a>
+          <a class="nav-link" routerLink="/admin/pedidos" routerLinkActive="active" data-tooltip="Pedidos">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="nav-text">Pedidos</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <h3 class="nav-section-title">Tienda</h3>
+          <a class="nav-link" routerLink="/categorias" data-tooltip="Ver Tienda">
+            <i class="fas fa-store"></i>
+            <span class="nav-text">Ver Tienda</span>
+          </a>
+          <a class="nav-link" routerLink="/home" data-tooltip="Página Principal">
+            <i class="fas fa-home"></i>
+            <span class="nav-text">Página Principal</span>
+          </a>
+        </div>
+        
+      </nav>
+    </div>
+    
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="user-details">
+          <div class="user-name">Admin</div>
+          <div class="user-role">Administrador</div>
+        </div>
+        <div class="status-indicator"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Contenido principal del CRUD -->
+  <main class="crud-main">
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
 </div>

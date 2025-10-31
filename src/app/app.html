@@ -1,7 +1,7 @@
-<app-navbar></app-navbar>
+<app-navbar [class.hidden]="isAdminRoute()"></app-navbar>
 
-<main class="container">
-  <router-outlet></router-outlet> <!-- Aquí carga Home, Login, etc. -->
+<main class="container" [class.admin-container]="isAdminRoute()">
+  <router-outlet></router-outlet>
 </main>
 
-<app-footer></app-footer>
+<app-footer></app-footer> <!-- Footer siempre visible -->

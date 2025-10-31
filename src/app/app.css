@@ -1,0 +1,13 @@
+/* Ocultar solo navbar */
+.hidden {
+  display: none !important;
+}
+
+/* Contenedor admin sin padding superior */
+.admin-container {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  height: 100vh !important;
+  max-width: none !important;
+  width: 100% !important;
+}
