@@ -1,0 +1,32 @@
+<body>
+  <div class="container-top">
+    <p>"Seguridad y confianza, el mejor power-up para tus compras."</p>
+  </div>
+
+  <div class="main">
+    <img src="/Fondo.png" alt="Imagen de fondo" class="background-image">
+    <div class="overlay-black"></div>
+
+    <div class="overlay-content">
+      <h2>Correo Electrónico</h2>
+
+      <input 
+        type="email" 
+        [(ngModel)]="correo"
+        placeholder="MarioYPeach2@ejemplo.com"
+        (keyup.enter)="enviarCorreo()"
+        [disabled]="loading"
+      >
+
+      <a (click)="enviarCorreo()" class="btn-link" [class.disabled]="loading">
+        {{ loading ? 'Enviando...' : 'Enviar' }}
+      </a>
+
+      <p class="mensaje" [style.color]="mensajeColor">{{ mensaje }}</p>
+    </div>
+  </div>
+
+  <div class="container-bottom">
+    <p>"Donde tus datos están tan protegidos como tu progreso."</p>
+  </div>
+</body>

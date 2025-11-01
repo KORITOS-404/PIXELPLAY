@@ -44,6 +44,23 @@ export class AuthService {
       );
   }
   
+  // MÉTODOS PARA RECUPERAR CONTRASEÑA
+  enviarCodigoRecuperacion(correo: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/recuperar-password/enviar-codigo`, { correo });
+  }
+
+  validarCodigo(correo: string, codigo: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/recuperar-password/validar-codigo`, { correo, codigo });
+  }
+
+  cambiarPassword(correo: string, codigo: string, nuevaPassword: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/recuperar-password/cambiar-password`, { 
+      correo, 
+      codigo, 
+      nuevaPassword 
+    });
+  }
+  
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('userData');

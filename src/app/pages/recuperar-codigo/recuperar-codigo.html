@@ -1,0 +1,56 @@
+<body>
+  <div class="container-top">
+    <p>"Seguridad y confianza, el mejor power-up para tus compras."</p>
+  </div>
+
+  <div class="main">
+    <img src="/Fondo.png" alt="Imagen de fondo" class="background-image">
+    <div class="overlay-black"></div>
+
+    <div class="overlay-content">
+      <h2>Ingresa tu código</h2>
+
+      <p style="color:#fff; margin-bottom:10px;">
+        Hemos enviado un código de 6 dígitos a tu correo.
+      </p>
+
+      <div class="code-group">
+        @for (box of codeBoxes; track $index) {
+          <input 
+            class="code-box" 
+            type="text"
+            inputmode="numeric" 
+            maxlength="1"
+            [(ngModel)]="codeBoxes[$index]"
+            (input)="onCodeInput($index, $event)"
+            (keydown)="onCodeKeydown($index, $event)"
+            [disabled]="loading"
+          >
+        }
+      </div>
+
+      <button (click)="validarCodigo()" class="btn-validar" [disabled]="loading">
+        {{ loading ? 'Validando...' : 'Validar' }}
+      </button>
+
+      <div class="actions">
+        <button 
+          (click)="reenviarCodigo()" 
+          class="link-btn" 
+          [disabled]="!canResend"
+        >
+          Reenviar código
+        </button>
+        @if (!canResend) {
+          <span class="timer">Reenviar en {{ timer }}s</span>
+        }
+      </div>
+
+      <p class="mensaje" [style.color]="mensajeColor">{{ mensaje }}</p>
+    </div>
+  </div>
+
+  <div class="container-bottom">
+    <p>"Donde tus datos están tan protegidos como tu progreso."</p>
+  </div>
+</body>
