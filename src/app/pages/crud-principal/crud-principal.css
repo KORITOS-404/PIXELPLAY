@@ -55,7 +55,7 @@
     "sidebar main";
   grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
-  height: 100vh;
+  height: auto;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow: hidden;
@@ -386,7 +386,7 @@
 .sidebar-content {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem 0 1rem;
+  padding: 2rem 0 2.5rem;
 }
 
 .sidebar-content::-webkit-scrollbar {
@@ -509,6 +509,7 @@
   border-top: 1px solid var(--sidebar-border);
   background: rgba(226, 232, 240, 0.5);
   transition: var(--transition);
+  margin-bottom: 1.5rem;
 }
 
 .user-info {
@@ -571,7 +572,7 @@
   background: transparent;
   overflow-y: auto;
   padding: 1.5rem;
-  padding-bottom: 100px;
+  padding-bottom: 140px;
   display: flex;
   flex-direction: column;
 }
@@ -583,7 +584,7 @@
   border: 1px solid rgba(0,0,0,0.08);
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-lg);
-  margin: 0;
+  margin: 0 0 2rem 0;
   overflow: visible;
 }
 
@@ -698,7 +699,7 @@
   
   .crud-main {
     padding: 1rem;
-    padding-bottom: 80px;
+    padding-bottom: 110px;
   }
   
   .crud-sidebar {

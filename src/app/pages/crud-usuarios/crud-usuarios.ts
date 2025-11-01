@@ -7,11 +7,15 @@ import { Usuario } from '../../models/Usuario';
 @Component({
   selector: 'app-crud-usuarios',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './crud-usuarios.html',
-  styleUrls: ['./crud-usuarios.css'] ,
+  styleUrls: [
+    '../crud-principal/crud-principal.css',  // Importar estilos principales
+    './crud-usuarios.css'                    // Mantener estilos específicos
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class CrudUsuarios implements OnInit {
   usuarios: Usuario[] = [];
   isLoading = false;
