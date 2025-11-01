@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -14,6 +14,7 @@ export class CrudPrincipal implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   
   isSidebarToggled = false;
+  isUserDropdownVisible = false;
 
   ngOnInit() {
     this.cdr.markForCheck();
@@ -21,11 +22,31 @@ export class CrudPrincipal implements OnInit {
 
   toggleSidebar() {
     this.isSidebarToggled = !this.isSidebarToggled;
-    
-    // Debug para verificar el estado
     console.log('Sidebar collapsed:', this.isSidebarToggled);
-    
-    // Forzar detección de cambios
     this.cdr.markForCheck();
+  }
+
+  toggleUserDropdown() {
+    this.isUserDropdownVisible = !this.isUserDropdownVisible;
+    console.log('Dropdown visible:', this.isUserDropdownVisible);
+    // Forzar detección inmediata
+    this.cdr.detectChanges();
+  }
+
+  closeDropdown() {
+    this.isUserDropdownVisible = false;
+    this.cdr.markForCheck();
+  }
+
+  // Cerrar dropdown al hacer click fuera
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    const target = event.target as HTMLElement;
+    const userMenu = target.closest('.user-menu');
+    
+    if (!userMenu && this.isUserDropdownVisible) {
+      this.isUserDropdownVisible = false;
+      this.cdr.markForCheck();
+    }
   }
 }

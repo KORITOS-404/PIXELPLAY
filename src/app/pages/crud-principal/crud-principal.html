@@ -17,33 +17,41 @@
         </button>
       </div>
     </div>
-    
-    <div class="header-right">
-      <div class="user-menu">
-        <button class="user-btn" type="button">
-          <i class="fas fa-user"></i>
-        </button>
-        <div class="user-dropdown">
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-cog"></i>
-            <span>Configuración</span>
-          </a>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-history"></i>
-            <span>Registro de actividad</span>
-          </a>
-          <hr class="dropdown-divider" />
-          <a routerLink="/home" class="dropdown-item">
-            <i class="fas fa-store"></i>
-            <span>Volver a la tienda</span>
-          </a>
-          <a href="#" class="dropdown-item logout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Cerrar sesión</span>
-          </a>
-        </div>
-      </div>
+  <div class="header-right">
+  <div class="user-menu">
+    <button 
+      class="user-btn" 
+      [class.dropdown-active]="isUserDropdownVisible"
+      type="button" 
+      (click)="toggleUserDropdown()">
+      <i class="fas fa-user"></i>
+    </button>
+    <div class="user-dropdown" [class.show]="isUserDropdownVisible">
+      <a href="#" class="dropdown-item" (click)="closeDropdown()">
+        <i class="fas fa-cog"></i>
+        <span>Configuración</span>
+      </a>
+      <a href="#" class="dropdown-item" (click)="closeDropdown()">
+        <i class="fas fa-history"></i>
+        <span>Registro de actividad</span>
+      </a>
+      <hr class="dropdown-divider" />
+      <a routerLink="/home" class="dropdown-item" (click)="closeDropdown()">
+        <i class="fas fa-store"></i>
+        <span>Volver a la tienda</span>
+      </a>
+      <a href="#" class="dropdown-item logout" (click)="closeDropdown()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Cerrar sesión</span>
+      </a>
     </div>
+  </div>
+</div>
+
+
+
+    
+    
   </header>
 
   <!-- Sidebar del CRUD -->
