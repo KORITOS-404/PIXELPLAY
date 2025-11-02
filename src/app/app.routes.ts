@@ -5,6 +5,7 @@ import { Register } from './pages/register/register';
 import { Nosotros } from './pages/nosotros/nosotros';
 import { Carrito } from './pages/carrito/carrito';
 import { CategoriasComponent } from './pages/categorias/categorias';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -30,6 +31,33 @@ export const routes: Routes = [
     path: 'recuperar-nueva-password',
     loadComponent: () => import('./pages/recuperar-nueva-password/recuperar-nueva-password')
       .then(m => m.RecuperarNuevaPassword)
+  },
+
+  // ✅ RUTAS ADMIN PROTEGIDAS
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadComponent: () => import('./pages/crud-principal/crud-principal').then(m => m.CrudPrincipal),
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./pages/crud-dashboard/crud-dashboard').then(m => m.CrudDashboard)
+      },
+      {
+        path: 'charts',
+        loadComponent: () => import('./pages/crud-metricas/crud-metricas').then(m => m.CrudMetricas)
+      },
+      // ✅ NUEVA RUTA DE USUARIOS
+      {
+        path: 'usuarios',
+        loadComponent: () => import('./pages/crud-usuarios/crud-usuarios').then(m => m.CrudUsuarios)
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+    ]
   },
   
   // Ruta por defecto

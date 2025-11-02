@@ -1,0 +1,229 @@
+<div class="users-container">
+  <h1 class="page-title">Gestión de Usuarios</h1>
+  <nav class="breadcrumb">
+    <a routerLink="/admin/dashboard">Dashboard</a>
+    <span>&gt;</span>
+    <span class="breadcrumb-item active">Usuarios</span>
+  </nav>
+
+  <!-- Mensaje de error -->
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Mensaje de éxito -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i> Cargando...
+  </div>
+
+  <!-- Métricas -->
+  <div class="metrics-row">
+    <div class="metric-card primary">
+      <div class="card-body">Total Usuarios</div>
+      <div class="card-value">{{ getTotalUsuarios() }}</div>
+    </div>
+    <div class="metric-card warning">
+      <div class="card-body">Administradores</div>
+      <div class="card-value">{{ getAdminCount() }}</div>
+    </div>
+    <div class="metric-card success">
+      <div class="card-body">Usuarios</div>
+      <div class="card-value">{{ getUserCount() }}</div>
+    </div>
+  </div>
+
+  <!-- ✅ DEMO DE COMMONS LANG3 -->
+  <div class="commons-demo">
+    <div class="demo-header">
+      <i class="fas fa-flask"></i>
+      <h4>Apache Commons Lang3 - Formateo Automático</h4>
+    </div>
+    
+    <div class="demo-grid">
+      <div class="demo-item">
+        <div class="demo-label">Escribes:</div>
+        <code class="demo-input">"  jUaN  "</code>
+        <i class="fas fa-arrow-right demo-arrow"></i>
+        <div class="demo-label">Se guarda:</div>
+        <code class="demo-output">"Juan"</code>
+      </div>
+      
+      <div class="demo-item">
+        <div class="demo-label">Escribes:</div>
+        <code class="demo-input">"JUAN@TEST.COM"</code>
+        <i class="fas fa-arrow-right demo-arrow"></i>
+        <div class="demo-label">Se guarda:</div>
+        <code class="demo-output">"juan@test.com"</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="crud-section">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <button class="btn-create" (click)="openCreateModal()">
+          <i class="fas fa-plus"></i> Nuevo Usuario
+        </button>
+        
+        <button class="btn-export" (click)="descargarExcel()" [disabled]="isLoading">
+          <i class="fas fa-file-excel"></i> Descargar Excel
+        </button>
+      </div>
+      
+      <div class="search-box">
+        <input 
+          type="text" 
+          [(ngModel)]="searchKeyword" 
+          (keyup.enter)="buscarUsuarios()"
+          placeholder="Buscar usuarios..."
+          class="search-input"
+        />
+        <button class="btn-search" (click)="buscarUsuarios()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-container">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of usuarios">
+            <td>{{ user.idUsuario }}</td>
+            <td>
+              <span class="formatted-text" title="Formateado con Commons Lang3">
+                {{ user.nombre }}
+              </span>
+            </td>
+            <td>
+              <span class="formatted-text" title="Formateado con Commons Lang3">
+                {{ user.apellido }}
+              </span>
+            </td>
+            <td>
+              <span class="formatted-text" title="Formateado con Commons Lang3">
+                {{ user.correo }}
+              </span>
+            </td>
+            <td>{{ user.telefono || 'N/A' }}</td>
+            <td>{{ user.direccion || 'N/A' }}</td>
+            <td>
+              <span class="role-badge" [class.admin]="user.rol === 'ROLE_ADMIN'">
+                {{ user.rol === 'ROLE_ADMIN' ? 'Admin' : 'Usuario' }}
+              </span>
+            </td>
+            <td>
+              <button class="btn-edit" (click)="openEditModal(user)">
+                <i class="fas fa-edit"></i> Editar
+              </button>
+              <button class="btn-delete" (click)="deleteUsuario(user.idUsuario!)">
+                <i class="fas fa-trash"></i> Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Paginación -->
+      <div class="pagination">
+        <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 0">
+          <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        
+        <span class="page-info">
+          Página {{ currentPage + 1 }} de {{ totalPages }} ({{ totalElements }} usuarios)
+        </span>
+        
+        <button class="btn-page" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">
+          Siguiente <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Crear/Editar -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>{{ isEditMode ? 'Editar Usuario' : 'Nuevo Usuario' }}</h3>
+        <button class="btn-close" (click)="closeModal()">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" [(ngModel)]="newUsuario.nombre" class="form-input" required />
+          </div>
+          
+          <div class="form-group">
+            <label>Apellido *</label>
+            <input type="text" [(ngModel)]="newUsuario.apellido" class="form-input" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Correo *</label>
+          <input type="email" [(ngModel)]="newUsuario.correo" class="form-input" required />
+        </div>
+
+        <div class="form-group" *ngIf="!isEditMode">
+          <label>Contraseña *</label>
+          <input type="password" [(ngModel)]="newUsuario.password" class="form-input" required />
+          <small class="form-hint">Mínimo 6 caracteres</small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Teléfono *</label>
+            <input type="text" [(ngModel)]="newUsuario.telefono" class="form-input" required />
+          </div>
+          
+          <div class="form-group">
+            <label>Rol *</label>
+            <select [(ngModel)]="newUsuario.rol" class="form-input" required>
+              <option value="ROLE_USER">Usuario</option>
+              <option value="ROLE_ADMIN">Administrador</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Dirección *</label>
+          <textarea [(ngModel)]="newUsuario.direccion" class="form-input" rows="2" required></textarea>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn-save" (click)="saveUsuario()" [disabled]="isLoading">
+          <i class="fas fa-save"></i> {{ isLoading ? 'Guardando...' : 'Guardar' }}
+        </button>
+        <button class="btn-cancel" (click)="closeModal()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

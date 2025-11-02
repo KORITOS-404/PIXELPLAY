@@ -20,7 +20,6 @@ export class Navbar implements OnInit {
   menuOpen = false;
   
   ngOnInit() {
-    // Suscribirse a cambios en el estado de autenticación
     this.authService.currentUser$.subscribe(user => {
       this.isAuthenticated = !!user;
       this.userData = user;
@@ -31,6 +30,21 @@ export class Navbar implements OnInit {
     this.menuOpen = !this.menuOpen;
   }
   
+  // ✅ NUEVO MÉTODO
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+  
+  // ✅ NUEVO MÉTODO
+  goToMiCuenta(): void {
+    if (this.isAdmin()) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/perfil']); // o la ruta que quieras para usuarios normales
+    }
+    this.closeMenu();
+  }
+  
   logout() {
     if (confirm('¿Estás seguro de cerrar sesión?')) {
       this.authService.logout();
@@ -38,7 +52,6 @@ export class Navbar implements OnInit {
     }
   }
   
-  // Cerrar menú al hacer click fuera
   closeMenu() {
     this.menuOpen = false;
   }

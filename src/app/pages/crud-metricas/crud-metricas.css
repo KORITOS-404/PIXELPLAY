@@ -1,0 +1,357 @@
+.metricas-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-title {
+  color: #275efe;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.breadcrumb {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.breadcrumb a {
+  color: #275efe;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #1e4fd8;
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: #212529;
+  font-weight: 600;
+}
+
+/* Loading */
+.loading-spinner {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #275efe;
+}
+
+/* Métricas principales */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.metric-card.primary::before {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.metric-card.warning::before {
+  background: linear-gradient(135deg, #F7971E 0%, #FFD200 100%);
+}
+
+.metric-card.success::before {
+  background: linear-gradient(135deg, #34e89e 0%, #0f3443 100%);
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+}
+
+.metric-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.metric-card.primary .metric-icon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.metric-card.warning .metric-icon {
+  background: linear-gradient(135deg, #F7971E 0%, #FFD200 100%);
+}
+
+.metric-card.success .metric-icon {
+  background: linear-gradient(135deg, #34e89e 0%, #0f3443 100%);
+}
+
+.metric-info {
+  flex: 1;
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* Charts Grid */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 2rem;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.chart-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.chart-header {
+  background: linear-gradient(135deg, #275efe 0%, #5f2c82 100%);
+  color: #fff;
+  padding: 1.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chart-body {
+  padding: 2rem;
+}
+
+/* Gráfico de barras CSS */
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bar-item {
+  display: grid;
+  grid-template-columns: 140px 1fr 100px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bar-label {
+  font-weight: 600;
+  color: #212529;
+  font-size: 0.95rem;
+}
+
+.bar-container {
+  background: #f0f4f8;
+  border-radius: 10px;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.bar-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-align: right;
+}
+
+/* Gráfico circular CSS */
+.pie-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pie-chart {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  background: conic-gradient(
+    from 0deg,
+    #667eea 0deg 90deg,
+    #764ba2 90deg 180deg,
+    #F7971E 180deg 270deg,
+    #34e89e 270deg 360deg
+  );
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.pie-legend {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.legend-text {
+  font-size: 0.9rem;
+  color: #212529;
+  font-weight: 500;
+}
+
+/* Ranking */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ranking-item {
+  display: grid;
+  grid-template-columns: 50px 1fr 150px;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 14px;
+  transition: all 0.2s;
+}
+
+.ranking-item:hover {
+  background: #e2e8f0;
+  transform: translateX(5px);
+}
+
+.ranking-position {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.ranking-info {
+  flex: 1;
+}
+
+.ranking-name {
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+
+.ranking-bar-container {
+  background: #cbd5e1;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ranking-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #275efe 0%, #5f2c82 100%);
+  border-radius: 4px;
+  transition: width 1s ease-out;
+}
+
+.ranking-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .bar-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .ranking-item {
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+  }
+  
+  .ranking-value {
+    grid-column: 2;
+    text-align: left;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pie-legend {
+    grid-template-columns: 1fr;
+  }
+}

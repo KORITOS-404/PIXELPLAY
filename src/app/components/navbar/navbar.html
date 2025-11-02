@@ -30,9 +30,12 @@
                 </p>
               </div>
               <hr>
-              <a routerLink="/perfil" (click)="closeMenu()">
+              
+              <!-- ✅ CAMBIO: Usar (click) en vez de routerLink -->
+              <a (click)="goToMiCuenta(); $event.preventDefault()" style="cursor: pointer;">
                 <span>👤</span> Mi Perfil
               </a>
+              
               <a routerLink="/mis-pedidos" (click)="closeMenu()">
                 <span>📦</span> Mis Pedidos
               </a>
@@ -57,9 +60,9 @@
       <li><a routerLink="/nosotros">NOSOTROS</a></li>
       <li><a routerLink="/carrito">MI CARRITO</a></li>
       
-      <!-- MOSTRAR "MI CUENTA" SOLO SI ESTÁ AUTENTICADO -->
+      <!-- ✅ CAMBIO: Usar (click) en vez de routerLink -->
       @if (isAuthenticated) {
-        <li><a routerLink="/perfil" class="mi-cuenta">MI CUENTA</a></li>
+        <li><a (click)="goToMiCuenta()" class="mi-cuenta" style="cursor: pointer;">MI CUENTA</a></li>
       }
     </ul>
     <div class="search-box">

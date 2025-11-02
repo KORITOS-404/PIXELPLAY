@@ -93,4 +93,14 @@ export class AuthService {
     const user = this.getUserData();
     return user?.rol === 'ROLE_ADMIN';
   }
+
+  // ✅ NUEVO MÉTODO
+  getUserRole(): string | null {
+    const user = this.getUserData();
+    if (!user || !user.rol) return null;
+    
+    // Normalizar el rol (quitar el prefijo ROLE_ si existe)
+    const rol = user.rol.replace('ROLE_', '');
+    return rol;
+  }
 }

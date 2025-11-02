@@ -1,7 +1,14 @@
-<app-navbar></app-navbar>
+<!-- Mostrar navbar SOLO si NO estamos en rutas /admin -->
+<ng-container *ngIf="!isAdminRoute()">
+  <app-navbar></app-navbar>
+</ng-container>
 
-<main class="container">
-  <router-outlet></router-outlet> <!-- Aquí carga Home, Login, etc. -->
+<!-- Main container SOLO para rutas normales -->
+<main [class.container]="!isAdminRoute()">
+  <router-outlet></router-outlet>
 </main>
 
-<app-footer></app-footer>
+<!-- Mostrar footer SOLO si NO estamos en rutas /admin -->
+<ng-container *ngIf="!isAdminRoute()">
+  <app-footer></app-footer>
+</ng-container>

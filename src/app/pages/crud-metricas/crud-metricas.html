@@ -1,0 +1,121 @@
+<div class="metricas-container">
+  <h1 class="page-title">Métricas y Análisis</h1>
+  <nav class="breadcrumb">
+    <a routerLink="/admin/dashboard">Dashboard</a>
+    <span>&gt;</span>
+    <span class="breadcrumb-item active">Métricas</span>
+  </nav>
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+  </div>
+
+  <div *ngIf="!isLoading">
+    <!-- Cards de métricas principales -->
+    <div class="metrics-grid">
+      <div class="metric-card primary">
+        <div class="metric-icon">
+          <i class="fas fa-box"></i>
+        </div>
+        <div class="metric-info">
+          <div class="metric-label">Total Productos</div>
+          <div class="metric-value">{{ totalProductos }}</div>
+        </div>
+      </div>
+
+      <div class="metric-card warning">
+        <div class="metric-icon">
+          <i class="fas fa-cubes"></i>
+        </div>
+        <div class="metric-info">
+          <div class="metric-label">Stock Total</div>
+          <div class="metric-value">{{ totalStock }}</div>
+        </div>
+      </div>
+
+      <div class="metric-card success">
+        <div class="metric-icon">
+          <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="metric-info">
+          <div class="metric-label">Valor Inventario</div>
+          <div class="metric-value">${{ valorTotal.toFixed(2) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráficos CSS -->
+    <div class="charts-grid">
+      <!-- Gráfico de barras - Distribución por categoría -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <i class="fas fa-chart-bar"></i>
+          Distribución por Categoría
+        </div>
+        <div class="chart-body">
+          <div class="bar-chart">
+            <div class="bar-item" *ngFor="let cat of categorias">
+              <div class="bar-label">{{ cat.nombre }}</div>
+              <div class="bar-container">
+                <div class="bar-fill" 
+                     [style.width.%]="cat.porcentaje"
+                     [style.background]="cat.color">
+                </div>
+              </div>
+              <div class="bar-value">{{ cat.cantidad }} ({{ cat.porcentaje.toFixed(1) }}%)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico circular CSS - Categorías -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <i class="fas fa-chart-pie"></i>
+          Composición del Inventario
+        </div>
+        <div class="chart-body">
+          <div class="pie-chart-container">
+            <div class="pie-chart">
+              <div class="pie-segment" 
+                   *ngFor="let cat of categorias; let i = index"
+                   [style.--percentage]="cat.porcentaje"
+                   [style.--color]="cat.color"
+                   [style.--rotation]="getCumulativePercentage(i) + 'deg'">
+              </div>
+            </div>
+            <div class="pie-legend">
+              <div class="legend-item" *ngFor="let cat of categorias">
+                <span class="legend-color" [style.background]="cat.color"></span>
+                <span class="legend-text">{{ cat.nombre }} ({{ cat.porcentaje.toFixed(1) }}%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top 5 productos -->
+      <div class="chart-card full-width">
+        <div class="chart-header">
+          <i class="fas fa-trophy"></i>
+          Top 5 Productos con Mayor Stock
+        </div>
+        <div class="chart-body">
+          <div class="ranking-list">
+            <div class="ranking-item" *ngFor="let producto of topProductos; let i = index">
+              <div class="ranking-position">{{ i + 1 }}</div>
+              <div class="ranking-info">
+                <div class="ranking-name">{{ producto.nombre }}</div>
+                <div class="ranking-bar-container">
+                  <div class="ranking-bar" [style.width.%]="producto.porcentaje"></div>
+                </div>
+              </div>
+              <div class="ranking-value">{{ producto.cantidad }} unidades</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
