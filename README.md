@@ -1,6 +1,22 @@
 # Tienda de videojuegos PixelPlay
 ## Introduccion 
 PixelPlay es una tienda ubicada en una galería en Wilson que buscó mejorar su gestión de bases de datos y expandirse a nivel de todo Lima por ello via este repositorio se explicará el apartado del **frontend** que hemos empleado en el proyecto
+Cosas que faltan :
+-Pasarela de pagos (front)
+-Pasarela de pagos(back)(que funcione al pagar y envie un email al realizar la compra)
+-Carrito(front)
+-Carrito(backend)
+-Mejorar categorías , aplicar una barra de filtros para que el usuario pueda ver los juegos mejor , un plus seria ponerle su logo a cada banner 
+-Productos (front)
+-Productos (back)
+-Plan de pruebas(Documentación)
+-Plan de seguridad (Documentacion)
+-Mantenimiento(Documentacion)
+-Manual de usuario(Documentacion)
+-Manual Técnico(Documentacion)
+-Monitoreo(Documentacion) : Como se han establecido las tareas a lo largo de la semana
+-Manual de Mantenimiento
+-Acta de Cierre 
 
 
 Para el desarrollo de la página vamos a hacer el desarrollo de 7 vistas :
