@@ -1,0 +1,127 @@
+<div class="nintendo-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="particles-bg">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <!-- Character Images -->
+    <div class="hero-characters">
+      <img src="/mariobanner.png" alt="Mario" class="character mario">
+      <img src="/zeldabanner.png" alt="Link" class="character zelda">
+    </div>
+    
+    <div class="hero-content">
+      <div class="nintendo-logo">
+        <div class="logo-box">
+          <span class="nintendo-text">Nintendo</span>
+          <span class="switch-text">SWITCH</span>
+        </div>
+      </div>
+      <p class="hero-subtitle">Experience the Joy of Gaming Anywhere</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">{{nintendoGames.length}}</span>
+          <span class="stat-label">JUEGOS</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">TV</span>
+          <span class="stat-label">MODO</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">PORTÁTIL</span>
+          <span class="stat-label">MÓVIL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games Grid -->
+  <section class="games-section">
+    <div class="section-header">
+      <h2>EXCLUSIVOS NINTENDO</h2>
+      <div class="filter-buttons">
+        <button class="filter-btn active">TODOS</button>
+        <button class="filter-btn">EXCLUSIVOS</button>
+        <button class="filter-btn">POPULARES</button>
+        <button class="filter-btn">NUEVOS</button>
+      </div>
+    </div>
+
+    <div class="games-grid">
+      @for (juego of nintendoGames; track juego.id) {
+      <div class="game-card">
+        <div class="card-image">
+          <img [src]="juego.imagen" [alt]="juego.nombre">
+          <span class="badge" [class]="juego.badge.toLowerCase()">{{juego.badge}}</span>
+          <div class="card-overlay">
+            <button class="quick-view-btn">Vista Rápida</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="game-title">{{juego.nombre}}</h3>
+          <p class="game-description">{{juego.descripcion}}</p>
+          <div class="card-footer">
+            <span class="price">S/ {{juego.precio}}</span>
+            <button class="add-to-cart-btn" (click)="agregarAlCarrito(juego)">
+              <span>AGREGAR</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </section>
+
+  <!-- Platform Features -->
+  <section class="platform-info">
+    <div class="info-card">
+      <div class="info-icon">🎮</div>
+      <h3>Modo TV</h3>
+      <p>Conecta tu Switch al televisor y disfruta de juegos en pantalla grande</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">📱</div>
+      <h3>Modo Portátil</h3>
+      <p>Lleva tus juegos favoritos a donde quieras con la pantalla integrada</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">👥</div>
+      <h3>Multijugador Local</h3>
+      <p>Juega con amigos usando los Joy-Con en cualquier lugar</p>
+    </div>
+  </section>
+</div>
+
+<!-- Modal de confirmación -->
+@if (showModal) {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h3 class="modal-title">¡Producto agregado!</h3>
+    <div class="modal-product">
+      <img [src]="addedProduct.image" [alt]="addedProduct.name">
+      <div class="modal-product-info">
+        <p class="modal-product-name">{{ addedProduct.name }}</p>
+        <p class="modal-product-price">{{ addedProduct.price }}</p>
+      </div>
+    </div>
+    <p class="modal-cart-count">Productos en el carrito: <strong>{{ cartCount }}</strong></p>
+    <button class="modal-btn" (click)="closeModal()">Continuar comprando</button>
+  </div>
+</div>
+}
