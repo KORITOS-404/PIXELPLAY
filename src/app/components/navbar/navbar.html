@@ -56,7 +56,15 @@
   <nav class="menu-bar">
     <ul>
       <li><a routerLink="/home">INICIO</a></li>
-      <li><a routerLink="/categorias">CATEGORIAS</a></li>
+      <li class="categories-dropdown">
+        <a routerLink="/categorias">CATEGORIAS</a>
+        <div class="dropdown-content">
+          <a routerLink="/pc-cards">PC CARDS</a>
+          <a routerLink="/ps5">PLAY STATION 5</a>
+          <a routerLink="/xbox">XBOX SERIES</a>
+          <a routerLink="/nintendo">NINTENDO SWITCH</a>
+        </div>
+      </li>
       <li><a routerLink="/nosotros">NOSOTROS</a></li>
       <li><a routerLink="/carrito">MI CARRITO</a></li>
       

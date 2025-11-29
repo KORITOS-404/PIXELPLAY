@@ -5,6 +5,10 @@ import { Register } from './pages/register/register';
 import { Nosotros } from './pages/nosotros/nosotros';
 import { Carrito } from './pages/carrito/carrito';
 import { CategoriasComponent } from './pages/categorias/categorias';
+import { PcCardsComponent } from './pages/pc-cards/pc-cards';
+import { Ps5Component } from './pages/ps5/ps5';
+import { XboxComponent } from './pages/xbox/xbox';
+import { NintendoComponent } from './pages/nintendo/nintendo';
 import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
@@ -14,6 +18,10 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'nosotros', component: Nosotros },
   { path: 'categorias', component: CategoriasComponent },
+  { path: 'pc-cards', component: PcCardsComponent },
+  { path: 'ps5', component: Ps5Component },
+  { path: 'xbox', component: XboxComponent },
+  { path: 'nintendo', component: NintendoComponent },
   { path: 'carrito', component: Carrito },
   
   // Rutas de recuperar contraseña

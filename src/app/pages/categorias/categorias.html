@@ -27,8 +27,14 @@
 <section class="category-section pc-section">
   <div class="container">
     <div class="category-header">
-      <h2 class="category-title">PC CARDS</h2>
-      <p class="category-description">Potencia tu setup con las mejores tarjetas gráficas y componentes</p>
+      <div class="header-content">
+        <h2 class="category-title">PC CARDS</h2>
+        <p class="category-description">Los mejores juegos indie y AAA para tu PC gaming</p>
+      </div>
+      <a routerLink="/pc-cards" class="btn-view-more">
+        <span>VER MÁS</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
     
     <div class="products-carousel">
@@ -39,7 +45,7 @@
       <div class="carousel-container" id="pc-carousel">
         <div class="product-card">
           <div class="product-image">
-            <img src="balatro.png" alt="Balatro">
+            <img src="/balatro.png" alt="Balatro">
             <div class="product-badge">NUEVO</div>
           </div>
           <div class="product-info">
@@ -52,7 +58,8 @@
         
         <div class="product-card">
           <div class="product-image">
-            <img src="cuphead.png" alt="Cuphead">
+            <img src="/cuphead.png" alt="Cuphead">
+            <div class="product-badge">TOP</div>
           </div>
           <div class="product-info">
             <h3 class="product-title">CUPHEAD</h3>
@@ -64,7 +71,8 @@
         
         <div class="product-card">
           <div class="product-image">
-            <img src="hollowknight.png" alt="Hollow Knight">
+            <img src="/hollowknight.png" alt="Hollow Knight">
+            <div class="product-badge">EXCLUSIVO</div>
           </div>
           <div class="product-info">
             <h3 class="product-title">HOLLOW KNIGHT</h3>
@@ -76,12 +84,39 @@
         
         <div class="product-card">
           <div class="product-image">
-            <img src=" Omori_cover.jpg" alt="Omori">
+            <img src="/Omori_cover.jpg" alt="Omori">
+            <div class="product-badge">NUEVO</div>
           </div>
           <div class="product-info">
             <h3 class="product-title">OMORI</h3>
             <div class="product-rating">⭐⭐⭐⭐⭐</div>
             <div class="product-price">S/ 70.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/hades.jpg" alt="Hades">
+            <div class="product-badge">TOP</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">HADES</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 85.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/celeste.png" alt="Celeste">
+            <div class="product-badge">TOP</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">CELESTE</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 55.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>
@@ -98,8 +133,14 @@
 <section class="category-section ps5-section">
   <div class="container">
     <div class="category-header">
-      <h2 class="category-title">PLAYSTATION 5</h2>
-      <p class="category-description">Experimenta la nueva generación de gaming con PS5</p>
+      <div class="header-content">
+        <h2 class="category-title">PLAYSTATION 5</h2>
+        <p class="category-description">Experimenta la nueva generación de gaming con PS5</p>
+      </div>
+      <a routerLink="/ps5" class="btn-view-more">
+        <span>VER MÁS</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
     
     <div class="products-carousel">
@@ -110,20 +151,8 @@
       <div class="carousel-container" id="ps5-carousel">
         <div class="product-card">
           <div class="product-image">
-            <img src="evilwithin.jpg" alt="The Evil Within">
+            <img src="/persona5.jpg" alt="Persona 5 Royal">
             <div class="product-badge">EXCLUSIVO</div>
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">THE EVIL WITHIN</h3>
-            <div class="product-rating">⭐⭐⭐⭐⭐</div>
-            <div class="product-price">S/ 120.00</div>
-            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
-          </div>
-        </div>
-        
-        <div class="product-card">
-          <div class="product-image">
-            <img src="persona5.jpg" alt="Persona 5">
           </div>
           <div class="product-info">
             <h3 class="product-title">PERSONA 5 ROYAL</h3>
@@ -135,24 +164,65 @@
         
         <div class="product-card">
           <div class="product-image">
-            <img src="rdr2.jpg" alt="Red Dead Redemption 2">
+            <img src="/evilwithin.jpg" alt="The Evil Within">
+            <div class="product-badge">TOP</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">RED DEAD REDEMPTION 2</h3>
+            <h3 class="product-title">THE EVIL WITHIN</h3>
             <div class="product-rating">⭐⭐⭐⭐⭐</div>
-            <div class="product-price">S/ 220.00</div>
+            <div class="product-price">S/ 120.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>
         
         <div class="product-card">
           <div class="product-image">
-            <img src="silksong.jpg" alt="Hollow Knight Silksong">
+            <img src="/ghostoftsushima.jpg" alt="Ghost of Tsushima">
+            <div class="product-badge">EXCLUSIVO</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">HOLLOW KNIGHT: SILKSONG</h3>
+            <h3 class="product-title">GHOST OF TSUSHIMA</h3>
             <div class="product-rating">⭐⭐⭐⭐⭐</div>
-            <div class="product-price">S/ 65.00</div>
+            <div class="product-price">S/ 200.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/spiderman2.avif" alt="Spider-Man 2">
+            <div class="product-badge">NUEVO</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">SPIDER-MAN 2</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 250.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/ratchetandclank.jpg" alt="Ratchet & Clank">
+            <div class="product-badge">EXCLUSIVO</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">RATCHET & CLANK</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 220.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/demonssouls.jpg" alt="Demon's Souls">
+            <div class="product-badge">TOP</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">DEMON'S SOULS</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 260.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>
@@ -169,8 +239,14 @@
 <section class="category-section nintendo-section">
   <div class="container">
     <div class="category-header">
-      <h2 class="category-title">NINTENDO SWITCH</h2>
-      <p class="category-description">Diversión portable y familiar con Nintendo Switch</p>
+      <div class="header-content">
+        <h2 class="category-title">NINTENDO SWITCH</h2>
+        <p class="category-description">Diversión portable y familiar con Nintendo Switch</p>
+      </div>
+      <a routerLink="/nintendo" class="btn-view-more">
+        <span>VER MÁS</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
     
     <div class="products-carousel">
@@ -181,8 +257,8 @@
       <div class="carousel-container" id="nintendo-carousel">
         <div class="product-card">
           <div class="product-image">
-            <img src="mario.jpg" alt="Super Mario Odyssey">
-            <div class="product-badge">TOP</div>
+            <img src="/mario.jpg" alt="Super Mario Odyssey">
+            <div class="product-badge">EXCLUSIVO</div>
           </div>
           <div class="product-info">
             <h3 class="product-title">SUPER MARIO ODYSSEY</h3>
@@ -194,36 +270,65 @@
         
         <div class="product-card">
           <div class="product-image">
-            <img src="mario.jpg" alt="juego de mario">
+            <img src="/zelda.jpg" alt="The Legend of Zelda">
+            <div class="product-badge">TOP</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">juego de mario</h3>
-            <div class="product-rating">⭐</div>
-            <div class="product-price">S/ 00.00</div>
+            <h3 class="product-title">THE LEGEND OF ZELDA: BOTW</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 290.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>
         
         <div class="product-card">
           <div class="product-image">
-            <img src="zelda.jpg" alt="Juego de Zelda">
+            <img src="/animalcrossing.jpg" alt="Animal Crossing">
+            <div class="product-badge">TOP</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">juego de zelda</h3>
-            <div class="product-rating">⭐</div>
-            <div class="product-price">S/ 00.00</div>
+            <h3 class="product-title">ANIMAL CROSSING</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 270.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>
         
         <div class="product-card">
           <div class="product-image">
-            <img src="kirby.jpg" alt="Juego de Kirby">
+            <img src="/splatoon3.jpg" alt="Splatoon 3">
+            <div class="product-badge">NUEVO</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">juego de kirby</h3>
-            <div class="product-rating">⭐</div>
-            <div class="product-price">S/ 00.00</div>
+            <h3 class="product-title">SPLATOON 3</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 260.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/kirby.jpg" alt="Kirby Star Allies">
+            <div class="product-badge">EXCLUSIVO</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">KIRBY STAR ALLIES</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 240.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/metroid.jpg" alt="Metroid Dread">
+            <div class="product-badge">TOP</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">METROID DREAD</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 260.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>
@@ -240,8 +345,14 @@
 <section class="category-section xbox-section">
   <div class="container">
     <div class="category-header">
-      <h2 class="category-title">XBOX SERIES</h2>
-      <p class="category-description">Power your dreams con Xbox Series X|S</p>
+      <div class="header-content">
+        <h2 class="category-title">XBOX SERIES</h2>
+        <p class="category-description">Power your dreams con Xbox Series X|S</p>
+      </div>
+      <a routerLink="/xbox" class="btn-view-more">
+        <span>VER MÁS</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
     
     <div class="products-carousel">
@@ -252,23 +363,37 @@
       <div class="carousel-container" id="xbox-carousel">
         <div class="product-card">
           <div class="product-image">
-            <img src="evilwithin.jpg" alt="The Evil Within">
+            <img src="/haloinfinite.jpg" alt="Halo Infinite">
             <div class="product-badge">EXCLUSIVO</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">THE EVIL WITHIN</h3>
+            <h3 class="product-title">HALO INFINITE</h3>
             <div class="product-rating">⭐⭐⭐⭐⭐</div>
-            <div class="product-price">S/ 120.00</div>
+            <div class="product-price">S/ 230.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>
         
         <div class="product-card">
           <div class="product-image">
-            <img src="persona5.jpg" alt="Persona 5">
+            <img src="/forza5.jpg" alt="Forza Horizon 5">
+            <div class="product-badge">TOP</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">PERSONA 5 ROYAL</h3>
+            <h3 class="product-title">FORZA HORIZON 5</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 250.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/gears5.jpg" alt="Gears 5">
+            <div class="product-badge">EXCLUSIVO</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">GEARS 5</h3>
             <div class="product-rating">⭐⭐⭐⭐⭐</div>
             <div class="product-price">S/ 180.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
@@ -277,24 +402,39 @@
         
         <div class="product-card">
           <div class="product-image">
-            <img src="rdr2.jpg" alt="Red Dead Redemption 2">
+            <img src="/starfield.jpg" alt="Starfield">
+            <div class="product-badge">NUEVO</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">RED DEAD REDEMPTION 2</h3>
+            <h3 class="product-title">STARFIELD</h3>
             <div class="product-rating">⭐⭐⭐⭐⭐</div>
-            <div class="product-price">S/ 220.00</div>
+            <div class="product-price">S/ 270.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>
-        
+
         <div class="product-card">
           <div class="product-image">
-            <img src="silksong.jpg" alt="Hollow Knight Silksong">
+            <img src="/seaofthieves.jpg" alt="Sea of Thieves">
+            <div class="product-badge">TOP</div>
           </div>
           <div class="product-info">
-            <h3 class="product-title">HOLLOW KNIGHT: SILKSONG</h3>
+            <h3 class="product-title">SEA OF THIEVES</h3>
             <div class="product-rating">⭐⭐⭐⭐⭐</div>
-            <div class="product-price">S/ 65.00</div>
+            <div class="product-price">S/ 150.00</div>
+            <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/flightsim.jpg" alt="Flight Simulator">
+            <div class="product-badge">EXCLUSIVO</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">FLIGHT SIMULATOR</h3>
+            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+            <div class="product-price">S/ 220.00</div>
             <button class="btn-add-cart" (click)="addToCart($event)">AGREGAR</button>
           </div>
         </div>

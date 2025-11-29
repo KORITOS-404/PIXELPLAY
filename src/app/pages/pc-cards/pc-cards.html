@@ -1,0 +1,122 @@
+<div class="pc-cards-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="particles-bg">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <!-- Character Images -->
+    <div class="hero-characters">
+      <img src="/steve.png" alt="Steve Minecraft" class="character steve">
+      <img src="/modern-gaming-pc-isolated-on-transparent-free-png.png" alt="Gaming PC" class="character gaming-pc">
+    </div>
+    
+    <div class="hero-content">
+      <h1 class="hero-title">PC GAMING</h1>
+      <p class="hero-subtitle">Descubre los mejores juegos para tu PC</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">{{pcGames.length}}</span>
+          <span class="stat-label">JUEGOS</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">4K</span>
+          <span class="stat-label">ULTRA HD</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">144Hz</span>
+          <span class="stat-label">MAX FPS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games Grid -->
+  <section class="games-section">
+    <div class="section-header">
+      <h2>JUEGOS DISPONIBLES</h2>
+      <div class="filter-buttons">
+        <button class="filter-btn active">TODOS</button>
+        <button class="filter-btn">NUEVOS</button>
+        <button class="filter-btn">POPULARES</button>
+        <button class="filter-btn">OFERTAS</button>
+      </div>
+    </div>
+
+    <div class="games-grid">
+      @for (juego of pcGames; track juego.id) {
+      <div class="game-card">
+        <div class="card-image">
+          <img [src]="juego.imagen" [alt]="juego.nombre">
+          <span class="badge" [class]="juego.badge.toLowerCase()">{{juego.badge}}</span>
+          <div class="card-overlay">
+            <button class="quick-view-btn">Vista Rápida</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="game-title">{{juego.nombre}}</h3>
+          <p class="game-description">{{juego.descripcion}}</p>
+          <div class="card-footer">
+            <span class="price">S/ {{juego.precio}}</span>
+            <button class="add-to-cart-btn" (click)="agregarAlCarrito(juego)">
+              <span>AGREGAR</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </section>
+
+  <!-- Platform Info -->
+  <section class="platform-info">
+    <div class="info-card">
+      <div class="info-icon">🖥️</div>
+      <h3>PC Gaming Master Race</h3>
+      <p>Experiencia de juego incomparable con gráficos de última generación</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">⚡</div>
+      <h3>Rendimiento Extremo</h3>
+      <p>Juega con configuraciones ultra y alcanza los 144 FPS o más</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🎮</div>
+      <h3>Amplia Biblioteca</h3>
+      <p>Accede a miles de juegos exclusivos y multiplataforma</p>
+    </div>
+  </section>
+</div>
+
+<!-- Modal de confirmación -->
+@if (showModal) {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h3 class="modal-title">¡Producto agregado!</h3>
+    <div class="modal-product">
+      <img [src]="addedProduct.image" [alt]="addedProduct.name">
+      <div class="modal-product-info">
+        <p class="modal-product-name">{{ addedProduct.name }}</p>
+        <p class="modal-product-price">{{ addedProduct.price }}</p>
+      </div>
+    </div>
+    <p class="modal-cart-count">Productos en el carrito: <strong>{{ cartCount }}</strong></p>
+    <button class="modal-btn" (click)="closeModal()">Continuar comprando</button>
+  </div>
+</div>
+}

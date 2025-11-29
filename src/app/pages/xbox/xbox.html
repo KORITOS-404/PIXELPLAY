@@ -1,0 +1,127 @@
+<div class="xbox-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="particles-bg">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <!-- Character Images -->
+    <div class="hero-characters">
+      <img src="/masterchief.png" alt="Master Chief" class="character masterchief">
+      <img src="/xboxseriesx.png" alt="Xbox Series X" class="character xboxconsole">
+    </div>
+    
+    <div class="hero-content">
+      <div class="xbox-logo">
+        <div class="xbox-sphere">
+          <div class="x-mark">✕</div>
+        </div>
+        <h1 class="brand-name">XBOX SERIES X|S</h1>
+      </div>
+      <p class="hero-subtitle">Power Your Dreams</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">{{xboxGames.length}}</span>
+          <span class="stat-label">JUEGOS</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">12TF</span>
+          <span class="stat-label">POTENCIA</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">120FPS</span>
+          <span class="stat-label">MAX FPS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games Grid -->
+  <section class="games-section">
+    <div class="section-header">
+      <h2>CATÁLOGO XBOX</h2>
+      <div class="filter-buttons">
+        <button class="filter-btn active">TODOS</button>
+        <button class="filter-btn">GAME PASS</button>
+        <button class="filter-btn">EXCLUSIVOS</button>
+        <button class="filter-btn">NUEVOS</button>
+      </div>
+    </div>
+
+    <div class="games-grid">
+      @for (juego of xboxGames; track juego.id) {
+      <div class="game-card">
+        <div class="card-image">
+          <img [src]="juego.imagen" [alt]="juego.nombre">
+          <span class="badge" [class]="juego.badge.toLowerCase()">{{juego.badge}}</span>
+          <div class="card-overlay">
+            <button class="quick-view-btn">Vista Rápida</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="game-title">{{juego.nombre}}</h3>
+          <p class="game-description">{{juego.descripcion}}</p>
+          <div class="card-footer">
+            <span class="price">S/ {{juego.precio}}</span>
+            <button class="add-to-cart-btn" (click)="agregarAlCarrito(juego)">
+              <span>AGREGAR</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </section>
+
+  <!-- Platform Features -->
+  <section class="platform-info">
+    <div class="info-card">
+      <div class="info-icon">🎮</div>
+      <h3>Xbox Game Pass</h3>
+      <p>Acceso ilimitado a cientos de juegos de alta calidad por una suscripción mensual</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">⚡</div>
+      <h3>Quick Resume</h3>
+      <p>Cambia instantáneamente entre múltiples juegos sin perder tu progreso</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🌐</div>
+      <h3>Xbox Cloud Gaming</h3>
+      <p>Juega tus juegos favoritos desde cualquier dispositivo con la nube</p>
+    </div>
+  </section>
+</div>
+
+<!-- Modal de confirmación -->
+@if (showModal) {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h3 class="modal-title">¡Producto agregado!</h3>
+    <div class="modal-product">
+      <img [src]="addedProduct.image" [alt]="addedProduct.name">
+      <div class="modal-product-info">
+        <p class="modal-product-name">{{ addedProduct.name }}</p>
+        <p class="modal-product-price">{{ addedProduct.price }}</p>
+      </div>
+    </div>
+    <p class="modal-cart-count">Productos en el carrito: <strong>{{ cartCount }}</strong></p>
+    <button class="modal-btn" (click)="closeModal()">Continuar comprando</button>
+  </div>
+</div>
+}
