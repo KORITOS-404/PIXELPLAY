@@ -12,11 +12,11 @@ Cosas que faltan :
 * [x] Plan de pruebas(Documentación)
 * [X] Plan de seguridad (Documentacion)
 * [x] Mantenimiento(Documentacion)
-* [X]Manual de usuario(Documentacion)
+* [X] Manual de usuario(Documentacion)
 * [X] Manual Técnico(Documentacion)
-* [X]Monitoreo(Documentacion) : Como se han establecido las tareas a lo largo de la semana
-* [X]Manual de Mantenimiento
-* [X]Acta de Cierre 
+* [X] Monitoreo(Documentacion) : Como se han establecido las tareas a lo largo de la semana
+* [X] Manual de Mantenimiento
+* [X] Acta de Cierre 
 Para el desarrollo de la página vamos a hacer el desarrollo de 7 vistas :
 
 * [V] Inicio
