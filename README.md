@@ -2,23 +2,21 @@
 ## Introduccion 
 PixelPlay es una tienda ubicada en una galería en Wilson que buscó mejorar su gestión de bases de datos y expandirse a nivel de todo Lima por ello via este repositorio se explicará el apartado del **frontend** que hemos empleado en el proyecto
 Cosas que faltan :
-*[x] Pasarela de pagos (front)
-*[x] Pasarela de pagos(back)(que funcione al pagar y envie un email al realizar la compra)
-*[X] Carrito(front)
-*[X] Carrito(backend)
-*[x] Mejorar categorías , aplicar una barra de filtros para que el usuario pueda ver los juegos mejor , un plus seria ponerle su logo a cada banner 
-*[X] Productos (front)
-*{X] Productos (back)
-*[x] Plan de pruebas(Documentación)
-*[X] Plan de seguridad (Documentacion)
-*[x] Mantenimiento(Documentacion)
-*[X]Manual de usuario(Documentacion)
-*[X] Manual Técnico(Documentacion)
-*[X]Monitoreo(Documentacion) : Como se han establecido las tareas a lo largo de la semana
-*[X]Manual de Mantenimiento
-*[X]Acta de Cierre 
-
-
+* [x] Pasarela de pagos (front)
+* [x] Pasarela de pagos(back)(que funcione al pagar y envie un email al realizar la compra)
+* [X] Carrito(front)
+* [X] Carrito(backend)
+* [x] Mejorar categorías , aplicar una barra de filtros para que el usuario pueda ver los juegos mejor , un plus seria ponerle su logo a cada banner 
+* [X] Productos (front)
+* [X] Productos (back)
+* [x] Plan de pruebas(Documentación)
+* [X] Plan de seguridad (Documentacion)
+* [x] Mantenimiento(Documentacion)
+* [X]Manual de usuario(Documentacion)
+* [X] Manual Técnico(Documentacion)
+* [X]Monitoreo(Documentacion) : Como se han establecido las tareas a lo largo de la semana
+* [X]Manual de Mantenimiento
+* [X]Acta de Cierre 
 Para el desarrollo de la página vamos a hacer el desarrollo de 7 vistas :
 
 * [V] Inicio
