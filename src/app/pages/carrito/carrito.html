@@ -1,1 +1,116 @@
-<p>carrito works!</p>
+<!-- src/app/cart/cart.component.html -->
+<div class="cart-page">
+  <!-- Título principal -->
+  <header class="cart-title">
+    <h1>CARRITO DE COMPRAS</h1>
+  </header>
+
+  <!-- Contenido principal -->
+  <section class="cart-container">
+    <!-- Encabezado de la lista -->
+    <div class="cart-products-header">
+      <h2>Productos</h2>
+      <button class="link-remove" type="button">
+        ELIMINAR
+      </button>
+    </div>
+
+    <!-- Lista de productos -->
+    <ng-container *ngIf="items && items.length; else emptyState">
+      <article class="cart-item" *ngFor="let item of items">
+        <div class="cart-item-left">
+          <input type="checkbox" (change)="toggleSelect(item)" />
+
+          <div class="cart-item-cover">
+            <img [src]="item.imageUrl" [alt]="item.title" />
+          </div>
+
+          <div class="cart-item-info">
+            <h3>{{ item.title }}</h3>
+            <p class="platform">{{ item.platform }}</p>
+            <p class="price">S/ {{ item.price | number: '1.2-2' }}</p>
+          </div>
+        </div>
+
+        <div class="cart-item-right">
+          <div class="qty-box">
+            <button type="button" (click)="decreaseQty(item)">-</button>
+            <span>{{ item.quantity }}</span>
+            <button type="button" (click)="increaseQty(item)">+</button>
+          </div>
+          <button
+            class="btn-add"
+            type="button"
+            (click)="removeItem(item)"
+          >
+            Quitar
+          </button>
+        </div>
+      </article>
+    </ng-container>
+
+    <!-- Estado vacío + placeholders -->
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <p class="empty-title">Tu carrito está vacío</p>
+        <p class="empty-subtitle">
+          Cuando agregues juegos desde la tienda, aparecerán en esta sección.
+        </p>
+      </div>
+
+      <!-- Bloques vacíos / skeleton para mantener el diseño -->
+      <div class="placeholder-list">
+        <div class="cart-item placeholder" *ngFor="let p of [1, 2, 3]">
+          <div class="cart-item-left">
+            <input type="checkbox" disabled />
+
+            <div class="cart-item-cover skeleton"></div>
+
+            <div class="cart-item-info">
+              <div class="skeleton line"></div>
+              <div class="skeleton line short"></div>
+              <div class="skeleton price-line"></div>
+            </div>
+          </div>
+
+          <div class="cart-item-right">
+            <div class="skeleton qty-skeleton"></div>
+            <div class="skeleton btn-skeleton"></div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Resumen de pago -->
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Subtotal :</span>
+        <span>S/ {{ subtotal | number: '1.2-2' }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Descuento aplicado :</span>
+        <span>- S/ {{ discount | number: '1.2-2' }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Tarifa de envío :</span>
+        <span *ngIf="items.length; else zeroShipping">
+          S/ {{ shipping | number: '1.2-2' }}
+        </span>
+        <ng-template #zeroShipping> S/ 0.00 </ng-template>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra inferior TOTAL + PAGAR -->
+  <footer class="cart-footer">
+    <div class="footer-total">
+      <span class="label">TOTAL :</span>
+      <span class="amount">S/ {{ total | number: '1.2-2' }}</span>
+    </div>
+
+    <button class="btn-pay" type="button">
+      PAGAR
+    </button>
+  </footer>
+</div>
+    
