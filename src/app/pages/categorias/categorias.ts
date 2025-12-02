@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-categorias',
@@ -10,6 +11,8 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, RouterLink]
 })
 export class CategoriasComponent implements OnInit {
+  // Inyectar el servicio del carrito
+  cartService = inject(CartService);
 
   // Estado del modal
   showModal = false;
@@ -19,9 +22,10 @@ export class CategoriasComponent implements OnInit {
     image: ''
   };
 
-  // Carrito de compras
-  cart: any[] = [];
-  cartCount = 0;
+  // Usar el contador del servicio
+  get cartCount() {
+    return this.cartService.itemCount();
+  }
 
   constructor() { }
 
@@ -33,7 +37,7 @@ export class CategoriasComponent implements OnInit {
     const carousel = document.getElementById(`${category}-carousel`);
     if (!carousel) return;
 
-    const scrollAmount = 320; // Ancho de una tarjeta + gap
+    const scrollAmount = 320;
     const currentScroll = carousel.scrollLeft;
     
     if (direction === 'left') {
@@ -64,17 +68,17 @@ export class CategoriasComponent implements OnInit {
       const productPrice = priceElement?.textContent || 'S/ 0.00';
       const productImage = imageElement?.getAttribute('src') || '';
       
-      // Agregar al carrito
-      this.cart.push({
-        name: productName,
-        price: productPrice,
-        image: productImage
+      // Convertir precio a número
+      const precio = parseFloat(productPrice.replace('S/', '').trim());
+      
+      // Agregar al servicio
+      this.cartService.addItem({
+        nombre: productName,
+        precio: precio,
+        imagen: productImage
       });
       
-      // Actualizar contador
-      this.cartCount = this.cart.length;
-      
-      // Guardar información del producto agregado
+      // Guardar información del producto agregado para el modal
       this.addedProduct = {
         name: productName,
         price: productPrice,
@@ -95,5 +99,4 @@ export class CategoriasComponent implements OnInit {
   closeModal(): void {
     this.showModal = false;
   }
-
 }

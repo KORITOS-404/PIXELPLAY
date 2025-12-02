@@ -3,7 +3,7 @@ import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { Nosotros } from './pages/nosotros/nosotros';
-import { Carrito } from './pages/carrito/carrito';
+import { CartComponent } from './pages/carrito/carrito';
 import { CategoriasComponent } from './pages/categorias/categorias';
 import { PcCardsComponent } from './pages/pc-cards/pc-cards';
 import { Ps5Component } from './pages/ps5/ps5';
@@ -22,7 +22,7 @@ export const routes: Routes = [
   { path: 'ps5', component: Ps5Component },
   { path: 'xbox', component: XboxComponent },
   { path: 'nintendo', component: NintendoComponent },
-  { path: 'carrito', component: Carrito },
+  { path: 'carrito', component: CartComponent },
   
   // Rutas de recuperar contraseña
   { 

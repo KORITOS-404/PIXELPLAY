@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,9 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class Home {
+  // Inyectar el servicio del carrito
+  cartService = inject(CartService);
+  
   // Estado del modal
   showModal = false;
   addedProduct = {
@@ -17,9 +21,10 @@ export class Home {
     image: ''
   };
 
-  // Carrito de compras
-  cart: any[] = [];
-  cartCount = 0;
+  // Usar el contador del servicio
+  get cartCount() {
+    return this.cartService.itemCount();
+  }
 
   juegos = [
     {
@@ -34,19 +39,19 @@ export class Home {
     }
   ];
 
-  // Agregar producto al carrito
+  // Agregar producto al carrito usando el servicio
   addToCart(productName: string, productPrice: string, productImage: string) {
-    // Agregar al carrito
-    this.cart.push({
-      name: productName,
-      price: productPrice,
-      image: productImage
+    // Convertir el precio de string a número
+    const precio = parseFloat(productPrice.replace('S/', '').trim());
+    
+    // Agregar al servicio
+    this.cartService.addItem({
+      nombre: productName,
+      precio: precio,
+      imagen: productImage
     });
     
-    // Actualizar contador
-    this.cartCount = this.cart.length;
-    
-    // Guardar información del producto agregado
+    // Guardar información del producto agregado para el modal
     this.addedProduct = {
       name: productName,
       price: productPrice,

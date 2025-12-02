@@ -1,1 +1,125 @@
-<p>carrito works!</p>
+<div class="cart-container">
+  <!-- Hero Section -->
+  <section class="cart-hero">
+    <div class="hero-content">
+      <h1 class="cart-title">
+        <i class="fas fa-shopping-cart"></i>
+        MI CARRITO
+      </h1>
+      <p class="cart-subtitle">Revisa tus productos antes de finalizar la compra</p>
+    </div>
+  </section>
+
+  <!-- Cart Content -->
+  <section class="cart-content">
+    <div class="container">
+      @if (items().length === 0) {
+        <!-- Carrito Vacío -->
+        <div class="empty-cart">
+          <div class="empty-icon">🎮</div>
+          <h2>Tu carrito está vacío</h2>
+          <p>¡Agrega algunos juegos increíbles!</p>
+          <a routerLink="/home" class="btn-shop">
+            <span>EXPLORAR JUEGOS</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      } @else {
+        <!-- Carrito con Productos -->
+        <div class="cart-layout">
+          <!-- Lista de Productos -->
+          <div class="cart-items">
+            <div class="cart-header">
+              <h2>Productos ({{ itemCount() }})</h2>
+              <button class="btn-clear" (click)="clearCart()">
+                <i class="fas fa-trash"></i>
+                Vaciar Carrito
+              </button>
+            </div>
+
+            @for (item of items(); track item.id) {
+              <div class="cart-item">
+                <div class="item-image">
+                  <img [src]="item.imagen" [alt]="item.nombre">
+                  @if (item.badge) {
+                    <span class="item-badge" [class]="item.badge.toLowerCase()">
+                      {{ item.badge }}
+                    </span>
+                  }
+                </div>
+
+                <div class="item-details">
+                  <h3 class="item-name">{{ item.nombre }}</h3>
+                  @if (item.descripcion) {
+                    <p class="item-description">{{ item.descripcion }}</p>
+                  }
+                  <div class="item-price-mobile">S/ {{ item.precio.toFixed(2) }}</div>
+                </div>
+
+                <div class="item-quantity">
+                  <button class="qty-btn" (click)="decreaseQuantity(item.id)">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <span class="qty-number">{{ item.cantidad }}</span>
+                  <button class="qty-btn" (click)="increaseQuantity(item.id)">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+
+                <div class="item-price">
+                  S/ {{ (item.precio * item.cantidad).toFixed(2) }}
+                </div>
+
+                <button class="item-remove" (click)="removeItem(item.id)">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            }
+          </div>
+
+          <!-- Resumen del Pedido -->
+          <div class="cart-summary">
+            <h2>Resumen del Pedido</h2>
+            
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <span>S/ {{ total().toFixed(2) }}</span>
+            </div>
+            
+            <div class="summary-row">
+              <span>Envío:</span>
+              <span class="free-shipping">GRATIS</span>
+            </div>
+            
+            <div class="summary-divider"></div>
+            
+            <div class="summary-row total">
+              <span>Total:</span>
+              <span>S/ {{ total().toFixed(2) }}</span>
+            </div>
+
+            <button class="btn-checkout" (click)="checkout()">
+              <span>PROCEDER AL PAGO</span>
+              <i class="fas fa-lock"></i>
+            </button>
+
+            <a routerLink="/home" class="btn-continue">
+              <i class="fas fa-arrow-left"></i>
+              Continuar Comprando
+            </a>
+
+            <div class="payment-methods">
+              <p>Métodos de pago aceptados:</p>
+              <div class="payment-icons">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-cc-amex"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</div>

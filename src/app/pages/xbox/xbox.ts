@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-xbox',
@@ -9,6 +10,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./xbox.css']
 })
 export class XboxComponent {
+  // Inyectar el servicio del carrito
+  cartService = inject(CartService);
+
   xboxGames = [
     {
       id: 1,
@@ -62,18 +66,27 @@ export class XboxComponent {
 
   showModal = false;
   addedProduct = { name: '', price: '', image: '' };
-  cart: any[] = [];
-  cartCount = 0;
+
+  // Usar el contador del servicio
+  get cartCount() {
+    return this.cartService.itemCount();
+  }
 
   agregarAlCarrito(juego: any): void {
-    // Agregar al carrito
-    this.cart.push(juego);
-    this.cartCount++;
+    // Agregar al servicio del carrito
+    this.cartService.addItem({
+      id: juego.id,
+      nombre: juego.nombre,
+      precio: juego.precio,
+      imagen: juego.imagen,
+      descripcion: juego.descripcion,
+      badge: juego.badge
+    });
 
     // Configurar producto para mostrar en modal
     this.addedProduct = {
       name: juego.nombre.toUpperCase(),
-      price: `S/ ${juego.precio}`,
+      price: `S/ ${juego.precio.toFixed(2)}`,
       image: juego.imagen
     };
 
