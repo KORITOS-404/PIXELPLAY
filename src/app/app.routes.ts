@@ -10,6 +10,7 @@ import { Ps5Component } from './pages/ps5/ps5';
 import { XboxComponent } from './pages/xbox/xbox';
 import { NintendoComponent } from './pages/nintendo/nintendo';
 import { adminGuard } from './guards/admin.guard';
+import { Pasarelapagos } from './pages/pasarelapagos/pasarelapagos';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -23,7 +24,7 @@ export const routes: Routes = [
   { path: 'xbox', component: XboxComponent },
   { path: 'nintendo', component: NintendoComponent },
   { path: 'carrito', component: CartComponent },
-  
+  { path :'pasarelapagos',component: Pasarelapagos},
   // Rutas de recuperar contraseña
   { 
     path: 'recuperar-email',

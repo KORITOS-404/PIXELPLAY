@@ -1,0 +1,192 @@
+<div class="payment-page-wrapper">
+  <!-- Contenedor principal de pago -->
+  <div class="payment-container">
+    <!-- Estado: Formulario de Pago -->
+    @if (!paymentSuccess) {
+      <section class="payment-hero">
+        <h1 class="payment-title">
+          <i class="fas fa-credit-card"></i>
+          PAGO SEGURO
+        </h1>
+        <p class="payment-subtitle">Finaliza tu compra de forma segura</p>
+      </section>
+
+      <!-- Mensaje de error -->
+      @if (paymentError) {
+        <div class="error-message">
+          <i class="fas fa-exclamation-circle"></i>
+          <p>{{ errorMessage }}</p>
+        </div>
+      }
+
+      <!-- Formulario de pago -->
+      <form class="payment-form" (ngSubmit)="processPayment($event)">
+        <!-- Datos de la tarjeta -->
+        <div class="form-group">
+          <label for="cardName">Nombre en la tarjeta</label>
+          <input 
+            type="text" 
+            id="cardName" 
+            [(ngModel)]="formData.cardName"
+            name="cardName" 
+            placeholder="Juan Pérez López" 
+            [disabled]="isProcessing"
+            required />
+        </div>
+
+        <div class="form-group">
+          <label for="cardNumber">Número de tarjeta</label>
+          <input 
+            type="text" 
+            id="cardNumber" 
+            [(ngModel)]="formData.cardNumber"
+            (change)="onCardNumberChange($event)"
+            name="cardNumber" 
+            placeholder="1234 5678 9012 3456" 
+            maxlength="19"
+            [disabled]="isProcessing"
+            required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expiry">Expiración</label>
+            <input 
+              type="month" 
+              id="expiry" 
+              [(ngModel)]="formData.expiry"
+              name="expiry"
+              [disabled]="isProcessing"
+              required />
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input 
+              type="password" 
+              id="cvv" 
+              [(ngModel)]="formData.cvv"
+              name="cvv" 
+              placeholder="123" 
+              maxlength="4"
+              [disabled]="isProcessing"
+              required />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input 
+            type="email" 
+            id="email" 
+            [(ngModel)]="formData.email"
+            name="email" 
+            placeholder="correo@ejemplo.com"
+            [disabled]="isProcessing"
+            required />
+        </div>
+
+        <!-- Método de pago -->
+        <div class="form-group">
+          <label for="paymentMethod">Método de pago</label>
+          <select 
+            id="paymentMethod" 
+            [(ngModel)]="formData.paymentMethod"
+            name="paymentMethod"
+            [disabled]="isProcessing"
+            required>
+            <option value="" disabled selected>Selecciona método</option>
+            <option value="visa">Visa</option>
+            <option value="mastercard">Mastercard</option>
+            <option value="paypal">PayPal</option>
+            <option value="amex">American Express</option>
+          </select>
+        </div>
+
+        <!-- Monto total del carrito -->
+        <div class="payment-total">
+          <div class="total-row">
+            <span>Total a pagar:</span>
+            <span class="total-amount">S/ {{ total() | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <!-- Botón de pago -->
+        <button 
+          type="submit" 
+          class="btn-submit"
+          [disabled]="isProcessing">
+          @if (isProcessing) {
+            <span>PROCESANDO PAGO...</span>
+            <i class="fas fa-spinner fa-spin"></i>
+          } @else {
+            <span>PAGAR AHORA</span>
+            <i class="fas fa-lock"></i>
+          }
+        </button>
+
+        <!-- Botón regresar -->
+        <button 
+          type="button" 
+          class="btn-back"
+          (click)="goBackToCart()"
+          [disabled]="isProcessing">
+          <i class="fas fa-arrow-left"></i>
+          <span>VOLVER AL CARRITO</span>
+        </button>
+      </form>
+
+      <!-- Seguridad -->
+      <div class="security-info">
+        <div class="security-icons">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-cc-amex"></i>
+        </div>
+        <p>Transacción 100% segura y cifrada SSL</p>
+      </div>
+    }
+
+    <!-- Estado: Pago Exitoso -->
+    @if (paymentSuccess) {
+      <div class="success-container">
+        <div class="success-animation">
+          <div class="success-checkmark">
+            <div class="check-icon">
+              <i class="fas fa-check"></i>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="success-title">¡PAGO REALIZADO EXITOSAMENTE!</h2>
+        
+        <div class="success-details">
+          <p class="success-message">Tu compra se ha procesado correctamente</p>
+          
+          <div class="receipt-box">
+            <h3>Resumen de la transacción</h3>
+            <div class="receipt-row">
+              <span>Monto pagado:</span>
+              <strong>S/ {{ (paidAmount != null ? paidAmount : total()) | number:'1.2-2' }}</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Método:</span>
+              <strong>{{ formData.paymentMethod | uppercase }}</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Email de confirmación:</span>
+              <strong>{{ formData.email }}</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Estado:</span>
+              <strong style="color: #4caf50;">COMPLETADO</strong>
+            </div>
+          </div>
+
+          <p class="redirect-message">Serás redirigido a la página principal en 3 segundos...</p>
+        </div>
+      </div>
+    }
+  </div>
+</div>

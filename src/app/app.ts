@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Navbar } from './components/navbar/navbar';
 import { Footer } from './components/footer/footer';

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class CartComponent {
   cartService = inject(CartService);
+  private router = inject(Router);
   
   items = this.cartService.items;
   itemCount = this.cartService.itemCount;
@@ -42,6 +44,7 @@ export class CartComponent {
   }
 
   checkout(): void {
-    alert('Funcionalidad de pago próximamente...');
+    // Redirigir a la pasarela de pagos
+    this.router.navigate(['/pasarelapagos']);
   }
 }
