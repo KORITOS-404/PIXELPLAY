@@ -56,10 +56,17 @@ export const routes: Routes = [
         path: 'charts',
         loadComponent: () => import('./pages/crud-metricas/crud-metricas').then(m => m.CrudMetricas)
       },
-      // ✅ NUEVA RUTA DE USUARIOS
       {
         path: 'usuarios',
         loadComponent: () => import('./pages/crud-usuarios/crud-usuarios').then(m => m.CrudUsuarios)
+      },
+      {
+        path: 'productos',
+        loadComponent: () => import('./pages/crud-dashboard/crud-dashboard').then(m => m.CrudDashboard)
+      },
+      {
+        path: 'pedidos',
+        loadComponent: () => import('./pages/crud-pedidos/crud-pedidos').then(m => m.CrudPedidosComponent)
       },
       {
         path: '',

@@ -1,0 +1,500 @@
+<div class="pedidos-container">
+  <h1 class="page-title">Gestión de Pedidos</h1>
+  <nav class="breadcrumb">
+    <a routerLink="/admin/dashboard">Dashboard</a>
+    <span>&gt;</span>
+    <span class="breadcrumb-item active">Pedidos</span>
+  </nav>
+
+  <!-- Mensaje de error -->
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    <button class="alert-close" (click)="clearMessages()" type="button">&times;</button>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Mensaje de éxito -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    <button class="alert-close" (click)="clearMessages()" type="button">&times;</button>
+    {{ successMessage }}
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i> Cargando pedidos...
+  </div>
+
+  <!-- Métricas -->
+  <div class="metrics-row">
+    <div class="metric-card primary">
+      <div class="card-body">Total Pedidos</div>
+      <div class="card-value">{{ getTotalPedidos() }}</div>
+    </div>
+    <div class="metric-card warning">
+      <div class="card-body">Completados</div>
+      <div class="card-value">{{ getPedidosCompletados() }}</div>
+    </div>
+    <div class="metric-card success">
+      <div class="card-body">Monto Total</div>
+      <div class="card-value">${{ getMontoTotal().toFixed(2) }}</div>
+    </div>
+    <div class="metric-card info">
+      <div class="card-body">Promedio por Pedido</div>
+      <div class="card-value">${{ getMontoPromedio().toFixed(2) }}</div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="crud-section">
+    <div class="toolbar">
+      <div class="search-box">
+        <input 
+          type="text" 
+          [(ngModel)]="searchKeyword" 
+          (keyup.enter)="buscarPedidos()"
+          placeholder="Buscar por número de pedido, cliente..."
+          class="search-input"
+        />
+        <button class="btn-search" (click)="buscarPedidos()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabla de Pedidos -->
+    <div class="table-container">
+      <table class="pedidos-table">
+        <thead>
+          <tr>
+            <th>Número Pedido</th>
+            <th>Cliente</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Fecha</th>
+            <th>Cantidad Artículos</th>
+            <th>Monto Total</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pedido of pedidos" class="pedido-row">
+            <td>
+              <strong>{{ pedido.numeroPedido || `PED-${pedido.idPedido}` }}</strong>
+            </td>
+            <td>
+              {{ pedido.datosCliente.nombre }} {{ pedido.datosCliente.apellido }}
+            </td>
+            <td>
+              {{ pedido.datosCliente.correo }}
+            </td>
+            <td>
+              {{ pedido.datosCliente.telefono }}
+            </td>
+            <td>
+              {{ pedido.fechaPedido ? (pedido.fechaPedido | date:'short') : 'N/A' }}
+            </td>
+            <td class="quantity-cell">
+              <span class="quantity-badge">{{ pedido.detalles.length }}</span>
+            </td>
+            <td class="amount-cell">
+              <strong>${{ pedido.montoTotal.toFixed(2) }}</strong>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="getEstadoClass(pedido.estado)">
+                {{ getEstadoLabel(pedido.estado) }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <button 
+                class="btn-sm btn-info" 
+                (click)="openDetallesModal(pedido)"
+                title="Ver detalles"
+              >
+                <i class="fas fa-eye"></i> Detalles
+              </button>
+              <button 
+                class="btn-sm btn-success" 
+                (click)="generarBoleta(pedido)"
+                title="Generar boleta"
+              >
+                <i class="fas fa-receipt"></i> Boleta
+              </button>
+              <button 
+                class="btn-sm btn-primary" 
+                (click)="solicitarRUC(pedido)"
+                title="Generar factura"
+              >
+                <i class="fas fa-file-invoice"></i> Factura
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 0">
+          <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        
+        <span class="page-info">
+          Página {{ currentPage + 1 }} de {{ totalPages }} ({{ totalElements }} pedidos)
+        </span>
+        
+        <button class="btn-page" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">
+          Siguiente <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- MODAL DE DETALLES DEL PEDIDO -->
+<!-- ============================================ -->
+<div class="modal-overlay" *ngIf="showDetallesModal" (click)="closeModal()">
+  <div class="modal-content modal-lg" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Detalles del Pedido {{ selectedPedido?.numeroPedido || `PED-${selectedPedido?.idPedido}` }}</h3>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body" *ngIf="selectedPedido">
+      <!-- Información del Cliente -->
+      <div class="detail-section">
+        <h4 class="section-title">Información del Cliente</h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">Nombre:</span>
+            <span class="detail-value">{{ selectedPedido.datosCliente.nombre }} {{ selectedPedido.datosCliente.apellido }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Email:</span>
+            <span class="detail-value">{{ selectedPedido.datosCliente.correo }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Teléfono:</span>
+            <span class="detail-value">{{ selectedPedido.datosCliente.telefono }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Dirección:</span>
+            <span class="detail-value">{{ selectedPedido.datosCliente.direccion }}, {{ selectedPedido.datosCliente.ciudad }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del Pedido -->
+      <div class="detail-section">
+        <h4 class="section-title">Información del Pedido</h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">Número de Pedido:</span>
+            <span class="detail-value">{{ selectedPedido.numeroPedido || `PED-${selectedPedido.idPedido}` }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Fecha:</span>
+            <span class="detail-value">{{ selectedPedido.fechaPedido ? (selectedPedido.fechaPedido | date:'medium') : 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Estado:</span>
+            <span class="status-badge" [ngClass]="getEstadoClass(selectedPedido.estado)">
+              {{ getEstadoLabel(selectedPedido.estado) }}
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Método de Pago:</span>
+            <span class="detail-value">{{ formatarMetodoPago(selectedPedido.metadoPago) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detalles de Productos -->
+      <div class="detail-section">
+        <h4 class="section-title">Productos Comprados</h4>
+        <div class="table-responsive">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detalle of selectedPedido.detalles">
+                <td>{{ detalle.nombreProducto }}</td>
+                <td>{{ detalle.cantidad }}</td>
+                <td>${{ detalle.precioUnitario.toFixed(2) }}</td>
+                <td>${{ (detalle.cantidad * detalle.precioUnitario).toFixed(2) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Resumen Financiero -->
+      <div class="detail-section">
+        <h4 class="section-title">Resumen Financiero</h4>
+        <div class="financial-summary">
+          <div class="summary-item">
+            <span class="summary-label">Total de Artículos:</span>
+            <span class="summary-value">{{ getTotalArticulos(selectedPedido) }}</span>
+          </div>
+          <div class="summary-item total">
+            <span class="summary-label">Monto Total:</span>
+            <span class="summary-value">${{ selectedPedido.montoTotal.toFixed(2) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- MODAL DE BOLETA -->
+<!-- ============================================ -->
+<div class="modal-overlay" *ngIf="showBoletaModal" (click)="closeModal()">
+  <div class="modal-content modal-lg boleta-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header boleta-header">
+      <h3><i class="fas fa-receipt"></i> BOLETA DE VENTA</h3>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body boleta-content" *ngIf="boletaData">
+      <!-- Encabezado de Boleta -->
+      <div class="boleta-header-info">
+        <div class="store-info">
+          <h2>PixelPlay Store</h2>
+          <p>Tienda de Videojuegos</p>
+        </div>
+        <div class="boleta-number">
+          <strong>{{ boletaData.numeroBoleta }}</strong>
+        </div>
+      </div>
+
+      <!-- Información del Cliente -->
+      <div class="boleta-section">
+        <h4>Datos del Cliente</h4>
+        <div class="boleta-grid">
+          <div>
+            <strong>Nombre:</strong> {{ boletaData.cliente.nombre }} {{ boletaData.cliente.apellido }}
+          </div>
+          <div>
+            <strong>Correo:</strong> {{ boletaData.cliente.correo }}
+          </div>
+          <div>
+            <strong>Teléfono:</strong> {{ boletaData.cliente.telefono }}
+          </div>
+          <div>
+            <strong>Dirección:</strong> {{ boletaData.cliente.direccion }}
+          </div>
+          <div>
+            <strong>Ciudad:</strong> {{ boletaData.cliente.ciudad }}
+          </div>
+          <div>
+            <strong>Fecha de Emisión:</strong> {{ boletaData.fechaEmision | date:'medium' }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Productos -->
+      <div class="boleta-section">
+        <table class="boleta-table">
+          <thead>
+            <tr>
+              <th>Descripción</th>
+              <th>Cant.</th>
+              <th>Precio Unit.</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detalle of boletaData.detalles">
+              <td>{{ detalle.nombreProducto }}</td>
+              <td class="text-center">{{ detalle.cantidad }}</td>
+              <td class="text-right">${{ detalle.precioUnitario.toFixed(2) }}</td>
+              <td class="text-right"><strong>${{ (detalle.cantidad * detalle.precioUnitario).toFixed(2) }}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totales -->
+      <div class="boleta-totals">
+        <div class="total-line">
+          <span class="total-label">TOTAL:</span>
+          <span class="total-amount">${{ boletaData.montoTotal.toFixed(2) }}</span>
+        </div>
+        <div class="payment-method">
+          <strong>Método de Pago:</strong> {{ formatarMetodoPago(boletaData.metodoPago) }}
+        </div>
+      </div>
+
+      <!-- Pie de página -->
+      <div class="boleta-footer">
+        <p>Gracias por su compra en PixelPlay</p>
+        <p style="font-size: 12px; color: #666;">Esta es una boleta generada electrónicamente</p>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+      <button class="btn btn-success" (click)="descargarBoletaPDF()" [disabled]="generandoBoleta">
+        <i class="fas fa-download"></i> Descargar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- MODAL PARA SOLICITAR RUC (FACTURA) -->
+<!-- ============================================ -->
+<div class="modal-overlay" *ngIf="showRUCModal" (click)="closeModal()">
+  <div class="modal-content modal-md" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Ingrese el Número de RUC</h3>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="rucInput" class="form-label">Número de RUC</label>
+        <input 
+          id="rucInput"
+          type="text" 
+          [(ngModel)]="numeroRUC" 
+          (keyup.enter)="generarFactura()"
+          placeholder="Ingrese el RUC (11 dígitos)"
+          class="form-control"
+          maxlength="11"
+        />
+        <small class="form-text">El RUC debe tener 11 dígitos</small>
+      </div>
+
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i>
+        <span>Se generará una factura completa con detalles del IVA y desgloses de monto</span>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+      <button 
+        class="btn btn-primary" 
+        (click)="generarFactura()" 
+        [disabled]="!numeroRUC.trim() || generandoFactura"
+      >
+        <i class="fas fa-file-invoice"></i> Generar Factura
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- MODAL DE FACTURA -->
+<!-- ============================================ -->
+<div class="modal-overlay" *ngIf="showFacturaModal" (click)="closeModal()">
+  <div class="modal-content modal-lg factura-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header factura-header">
+      <h3><i class="fas fa-file-invoice"></i> FACTURA ELECTRÓNICA</h3>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body factura-content" *ngIf="facturaData">
+      <!-- Encabezado de Factura -->
+      <div class="factura-header-info">
+        <div class="store-info">
+          <h2>PixelPlay Store</h2>
+          <p>Tienda de Videojuegos</p>
+        </div>
+        <div class="factura-numbers">
+          <div><strong>Factura:</strong> {{ facturaData.numeroFactura }}</div>
+          <div><strong>RUC:</strong> {{ facturaData.numeroRUC }}</div>
+        </div>
+      </div>
+
+      <!-- Información del Cliente -->
+      <div class="factura-section">
+        <h4>Datos del Cliente</h4>
+        <div class="factura-grid">
+          <div>
+            <strong>Nombre:</strong> {{ facturaData.cliente.nombre }} {{ facturaData.cliente.apellido }}
+          </div>
+          <div>
+            <strong>Correo:</strong> {{ facturaData.cliente.correo }}
+          </div>
+          <div>
+            <strong>Teléfono:</strong> {{ facturaData.cliente.telefono }}
+          </div>
+          <div>
+            <strong>Dirección:</strong> {{ facturaData.cliente.direccion }}
+          </div>
+          <div>
+            <strong>Ciudad:</strong> {{ facturaData.cliente.ciudad }}
+          </div>
+          <div>
+            <strong>Fecha de Emisión:</strong> {{ facturaData.fechaEmision | date:'medium' }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Productos -->
+      <div class="factura-section">
+        <table class="factura-table">
+          <thead>
+            <tr>
+              <th>Descripción</th>
+              <th>Cant.</th>
+              <th>Precio Unit.</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detalle of facturaData.detalles">
+              <td>{{ detalle.nombreProducto }}</td>
+              <td class="text-center">{{ detalle.cantidad }}</td>
+              <td class="text-right">${{ detalle.precioUnitario.toFixed(2) }}</td>
+              <td class="text-right"><strong>${{ (detalle.cantidad * detalle.precioUnitario).toFixed(2) }}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totales con IGV -->
+      <div class="factura-totals">
+        <div class="total-line">
+          <span class="total-label">Subtotal:</span>
+          <span class="total-amount">${{ facturaData.montoSubtotal.toFixed(2) }}</span>
+        </div>
+        <div class="total-line highlight">
+          <span class="total-label">IGV (18%):</span>
+          <span class="total-amount">${{ facturaData.montoIGV.toFixed(2) }}</span>
+        </div>
+        <div class="total-line final">
+          <span class="total-label">TOTAL A PAGAR:</span>
+          <span class="total-amount">${{ facturaData.montoTotal.toFixed(2) }}</span>
+        </div>
+        <div class="payment-method">
+          <strong>Método de Pago:</strong> {{ formatarMetodoPago(facturaData.metodoPago) }}
+        </div>
+      </div>
+
+      <!-- Pie de página -->
+      <div class="factura-footer">
+        <p>Gracias por su compra en PixelPlay</p>
+        <p style="font-size: 12px; color: #666;">Esta es una factura generada electrónicamente</p>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+      <button class="btn btn-success" (click)="descargarFacturaPDF()" [disabled]="generandoFactura">
+        <i class="fas fa-download"></i> Descargar PDF
+      </button>
+    </div>
+  </div>
+</div>
