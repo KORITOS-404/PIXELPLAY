@@ -78,6 +78,107 @@
   font-weight: 400;
 }
 
+/* ========== RESUMEN DEL PEDIDO ========== */
+.order-summary {
+  background: rgba(76, 175, 80, 0.08);
+  border: 2px solid rgba(76, 175, 80, 0.3);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.order-summary h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: #4caf50;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.summary-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.summary-items::-webkit-scrollbar-track {
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 10px;
+}
+
+.summary-items::-webkit-scrollbar-thumb {
+  background: rgba(76, 175, 80, 0.5);
+  border-radius: 10px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: rgba(10, 18, 48, 0.5);
+  border-radius: 10px;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  transition: all 0.3s ease;
+}
+
+.summary-item:hover {
+  border-color: rgba(76, 175, 80, 0.5);
+  transform: translateX(5px);
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.item-thumb {
+  width: 50px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid rgba(76, 175, 80, 0.3);
+}
+
+.item-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.item-qty {
+  font-size: 0.85rem;
+  color: rgba(76, 175, 80, 0.8);
+}
+
+.item-price {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #4caf50;
+  white-space: nowrap;
+}
+
 /* Mensaje de error */
 .error-message {
   background: rgba(244, 67, 54, 0.15);
@@ -521,5 +622,13 @@
 
   .total-amount {
     font-size: 1.5rem;
+  }
+
+  .item-name {
+    font-size: 0.85rem;
+  }
+
+  .item-price {
+    font-size: 0.95rem;
   }
 }

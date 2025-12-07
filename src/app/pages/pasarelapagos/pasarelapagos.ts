@@ -15,8 +15,9 @@ export class Pasarelapagos {
   private cartService = inject(CartService);
   private router = inject(Router);
 
-  // Acceder al total del carrito
+  // Acceder al total y items del carrito
   total = this.cartService.total;
+  items = this.cartService.items;
 
   // Estado del formulario
   formData = {
@@ -33,8 +34,20 @@ export class Pasarelapagos {
   paymentSuccess = false;
   paymentError = false;
   errorMessage = '';
-  // Monto pagado (capturado al momento del pago exitoso)
   paidAmount: number | null = null;
+  orderNumber = '';
+
+  // Detectar tipo de tarjeta
+  detectCardType(cardNumber: string): string {
+    const digits = cardNumber.replace(/\s/g, '');
+    
+    if (/^4/.test(digits)) return 'visa';
+    if (/^5[1-5]/.test(digits)) return 'mastercard';
+    if (/^3[47]/.test(digits)) return 'amex';
+    if (/^6(?:011|5)/.test(digits)) return 'discover';
+    
+    return '';
+  }
 
   // Procesar pago
   processPayment(event: Event): void {
@@ -50,7 +63,6 @@ export class Pasarelapagos {
     // Validar datos del formulario
     if (!this.validateForm()) {
       this.paymentError = true;
-      this.errorMessage = 'Por favor completa todos los campos correctamente.';
       return;
     }
 
@@ -62,7 +74,7 @@ export class Pasarelapagos {
     setTimeout(() => {
       // Simular pago exitoso (90% de éxito)
       if (Math.random() > 0.1) {
-        // Capturar monto pagado antes de limpiar el carrito
+        this.orderNumber = this.generateOrderNumber();
         this.paidAmount = this.cartService.total();
         this.paymentSuccess = true;
         this.isProcessing = false;
@@ -73,7 +85,7 @@ export class Pasarelapagos {
           // Redirigir a home después de 3 segundos
           setTimeout(() => {
             this.router.navigate(['/home']);
-          }, 3000);
+          }, 8000);
         }, 2000);
       } else {
         // Simular fallo ocasional
@@ -89,26 +101,49 @@ export class Pasarelapagos {
     const { cardName, cardNumber, expiry, cvv, paymentMethod, email } = this.formData;
     
     if (!cardName.trim() || !cardNumber.trim() || !expiry || !cvv || !paymentMethod || !email.trim()) {
+      this.errorMessage = 'Por favor completa todos los campos correctamente.';
       return false;
     }
 
     // Validar número de tarjeta (16 dígitos)
     const cardDigits = cardNumber.replace(/\s/g, '');
     if (!/^\d{16}$/.test(cardDigits)) {
+      this.errorMessage = 'Número de tarjeta inválido (debe tener 16 dígitos).';
       return false;
     }
 
     // Validar CVV (3-4 dígitos)
     if (!/^\d{3,4}$/.test(cvv)) {
+      this.errorMessage = 'CVV inválido (debe tener 3 o 4 dígitos).';
       return false;
     }
 
     // Validar email
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      this.errorMessage = 'Correo electrónico inválido.';
+      return false;
+    }
+
+    // Validar que la fecha no sea pasada
+    const [year, month] = expiry.split('-').map(Number);
+    const expiryDate = new Date(year, month);
+    const today = new Date();
+    today.setDate(1);
+    today.setHours(0, 0, 0, 0);
+    
+    if (expiryDate < today) {
+      this.errorMessage = 'La tarjeta está vencida. Usa una tarjeta válida.';
       return false;
     }
 
     return true;
+  }
+
+  // Generar número de orden
+  private generateOrderNumber(): string {
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    return `GG-${timestamp}-${random}`;
   }
 
   // Formatear número de tarjeta
@@ -120,6 +155,12 @@ export class Pasarelapagos {
   // Manejar cambios en el input de tarjeta
   onCardNumberChange(event: any): void {
     this.formData.cardNumber = this.formatCardNumber(event.target.value);
+    
+    // Detectar y establecer tipo de tarjeta automáticamente
+    const cardType = this.detectCardType(event.target.value);
+    if (cardType) {
+      this.formData.paymentMethod = cardType;
+    }
   }
 
   // Regresar al carrito

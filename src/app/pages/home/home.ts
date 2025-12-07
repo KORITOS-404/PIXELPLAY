@@ -26,19 +26,6 @@ export class Home {
     return this.cartService.itemCount();
   }
 
-  juegos = [
-    {
-      titulo: 'The Evil Within',
-      precio: 150,
-      imagen: '/evilwithin.jpg'
-    },
-    {
-      titulo: 'Persona 5',
-      precio: 100,
-      imagen: '/persona5.jpg'
-    }
-  ];
-
   // Agregar producto al carrito usando el servicio
   addToCart(productName: string, productPrice: string, productImage: string) {
     // Convertir el precio de string a número
