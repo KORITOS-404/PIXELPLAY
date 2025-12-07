@@ -355,7 +355,7 @@ export class CrudPedidosComponent implements OnInit {
         </tr>
       `).join('');
 
-    return `
+    return `  
       <!DOCTYPE html>
       <html>
         <head>
