@@ -19,4 +19,6 @@ export interface AuthResponse {
   apellido: string;
   correo: string;
   rol: string;
+  telefono?: string;
+  direccion?: string;
 }

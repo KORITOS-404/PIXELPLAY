@@ -20,72 +20,7 @@ export class PedidoService {
   public pedidos$ = this.pedidosSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    // Inicializar con datos mock si es necesario
-    this.initializeMockData();
-  }
-
-  /**
-   * Inicializa datos mock para pruebas
-   */
-  private initializeMockData(): void {
-    const mockPedidos: Pedido[] = [
-      {
-        idPedido: 1,
-        numeroPedido: 'PED-001',
-        idUsuario: 1,
-        datosCliente: {
-          nombre: 'Juan',
-          apellido: 'Pérez',
-          correo: 'juan@example.com',
-          telefono: '987654321',
-          direccion: 'Calle Principal 123',
-          ciudad: 'Lima'
-        },
-        detalles: [
-          {
-            idProducto: 1,
-            nombreProducto: 'Elden Ring',
-            cantidad: 1,
-            precioUnitario: 69.99,
-            subtotal: 69.99
-          }
-        ],
-        fechaPedido: new Date().toISOString(),
-        estado: 'COMPLETADO',
-        montoTotal: 69.99,
-        metadoPago: 'TARJETA_CREDITO',
-        direccionEntrega: 'Calle Principal 123, Lima'
-      },
-      {
-        idPedido: 2,
-        numeroPedido: 'PED-002',
-        idUsuario: 2,
-        datosCliente: {
-          nombre: 'María',
-          apellido: 'García',
-          correo: 'maria@example.com',
-          telefono: '987654322',
-          direccion: 'Calle Secundaria 456',
-          ciudad: 'Lima'
-        },
-        detalles: [
-          {
-            idProducto: 2,
-            nombreProducto: 'The Legend of Zelda',
-            cantidad: 2,
-            precioUnitario: 59.99,
-            subtotal: 119.98
-          }
-        ],
-        fechaPedido: new Date().toISOString(),
-        estado: 'PENDIENTE',
-        montoTotal: 119.98,
-        metadoPago: 'TARJETA_DEBITO',
-        direccionEntrega: 'Calle Secundaria 456, Lima'
-      }
-    ];
-
-    this.pedidosSubject.next(mockPedidos);
+    // Servicio listo para usar con backend real
   }
 
   /**
@@ -135,6 +70,13 @@ export class PedidoService {
    */
   guardar(pedido: Pedido): Observable<Pedido> {
     return this.http.post<Pedido>(`${this.apiUrl}`, pedido);
+  }
+
+  /**
+   * Crear pedido desde el carrito
+   */
+  crearPedidoDesdeCarrito(datosCarrito: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, datosCarrito);
   }
 
   /**

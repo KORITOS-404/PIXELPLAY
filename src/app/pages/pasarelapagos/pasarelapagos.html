@@ -43,86 +43,154 @@
 
       <!-- Formulario de pago -->
       <form class="payment-form" (ngSubmit)="processPayment($event)">
-        <!-- Datos de la tarjeta -->
-        <div class="form-group">
-          <label for="cardName">Nombre en la tarjeta</label>
-          <input 
-            type="text" 
-            id="cardName" 
-            [(ngModel)]="formData.cardName"
-            name="cardName" 
-            placeholder="Juan Pérez López" 
-            [disabled]="isProcessing"
-            required />
+        
+        <!-- ========== SECCIÓN 1: DATOS DE CONTACTO ========== -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-user"></i>
+            Datos de contacto
+          </h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre *</label>
+              <input 
+                type="text" 
+                id="nombre" 
+                [(ngModel)]="formData.nombre"
+                name="nombre" 
+                placeholder="Juan" 
+                [disabled]="isProcessing"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="apellido">Apellido *</label>
+              <input 
+                type="text" 
+                id="apellido" 
+                [(ngModel)]="formData.apellido"
+                name="apellido" 
+                placeholder="Pérez" 
+                [disabled]="isProcessing"
+                required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="correo">Correo electrónico *</label>
+              <input 
+                type="email" 
+                id="correo" 
+                [(ngModel)]="formData.correo"
+                name="correo" 
+                placeholder="correo@ejemplo.com"
+                [disabled]="isProcessing"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono *</label>
+              <input 
+                type="tel" 
+                id="telefono" 
+                [(ngModel)]="formData.telefono"
+                name="telefono" 
+                placeholder="987654321"
+                maxlength="9"
+                [disabled]="isProcessing"
+                required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="direccion">Dirección *</label>
+              <input 
+                type="text" 
+                id="direccion" 
+                [(ngModel)]="formData.direccion"
+                name="direccion" 
+                placeholder="Av. Siempre Viva 123"
+                [disabled]="isProcessing"
+                required />
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="cardNumber">Número de tarjeta</label>
-          <input 
-            type="text" 
-            id="cardNumber" 
-            [(ngModel)]="formData.cardNumber"
-            (input)="onCardNumberChange($event)"
-            name="cardNumber" 
-            placeholder="1234 5678 9012 3456" 
-            maxlength="19"
-            [disabled]="isProcessing"
-            required />
-        </div>
+        <!-- ========== SECCIÓN 2: DATOS DE PAGO ========== -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-credit-card"></i>
+            Datos de pago
+          </h3>
 
-        <div class="form-row">
           <div class="form-group">
-            <label for="expiry">Expiración</label>
+            <label for="cardName">Nombre en la tarjeta *</label>
             <input 
-              type="month" 
-              id="expiry" 
-              [(ngModel)]="formData.expiry"
-              name="expiry"
+              type="text" 
+              id="cardName" 
+              [(ngModel)]="formData.cardName"
+              name="cardName" 
+              placeholder="Juan Pérez López" 
               [disabled]="isProcessing"
               required />
           </div>
+
           <div class="form-group">
-            <label for="cvv">CVV</label>
+            <label for="cardNumber">Número de tarjeta *</label>
             <input 
-              type="password" 
-              id="cvv" 
-              [(ngModel)]="formData.cvv"
-              name="cvv" 
-              placeholder="123" 
-              maxlength="4"
+              type="text" 
+              id="cardNumber" 
+              [(ngModel)]="formData.cardNumber"
+              (input)="onCardNumberChange($event)"
+              name="cardNumber" 
+              placeholder="1234 5678 9012 3456" 
+              maxlength="19"
               [disabled]="isProcessing"
               required />
           </div>
-        </div>
 
-        <!-- Email -->
-        <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input 
-            type="email" 
-            id="email" 
-            [(ngModel)]="formData.email"
-            name="email" 
-            placeholder="correo@ejemplo.com"
-            [disabled]="isProcessing"
-            required />
-        </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expiry">Expiración *</label>
+              <input 
+                type="month" 
+                id="expiry" 
+                [(ngModel)]="formData.expiry"
+                name="expiry"
+                [disabled]="isProcessing"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV *</label>
+              <input 
+                type="password" 
+                id="cvv" 
+                [(ngModel)]="formData.cvv"
+                name="cvv" 
+                placeholder="123" 
+                maxlength="4"
+                [disabled]="isProcessing"
+                required />
+            </div>
+          </div>
 
-        <!-- Método de pago -->
-        <div class="form-group">
-          <label for="paymentMethod">Método de pago</label>
-          <select 
-            id="paymentMethod" 
-            [(ngModel)]="formData.paymentMethod"
-            name="paymentMethod"
-            [disabled]="isProcessing"
-            required>
-            <option value="" disabled selected>Selecciona método</option>
-            <option value="visa">Visa</option>
-            <option value="mastercard">Mastercard</option>
-            <option value="paypal">PayPal</option>
-            <option value="amex">American Express</option>
-          </select>
+          <!-- Método de pago -->
+          <div class="form-group">
+            <label for="paymentMethod">Método de pago *</label>
+            <select 
+              id="paymentMethod" 
+              [(ngModel)]="formData.paymentMethod"
+              name="paymentMethod"
+              [disabled]="isProcessing"
+              required>
+              <option value="" disabled selected>Selecciona método</option>
+              <option value="visa">Visa</option>
+              <option value="mastercard">Mastercard</option>
+              <option value="paypal">PayPal</option>
+              <option value="amex">American Express</option>
+            </select>
+          </div>
         </div>
 
         <!-- Monto total del carrito -->
@@ -204,7 +272,7 @@
             </div>
             <div class="receipt-row">
               <span>Email de confirmación:</span>
-              <strong>{{ formData.email }}</strong>
+              <strong>{{ formData.correo }}</strong>
             </div>
             <div class="receipt-row">
               <span>Estado:</span>

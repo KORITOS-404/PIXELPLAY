@@ -1,8 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
+import { PedidoService } from '../../services/pedido.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-pasarelapagos',
@@ -11,22 +13,35 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './pasarelapagos.html',
   styleUrls: ['./pasarelapagos.css']
 })
-export class Pasarelapagos {
+export class Pasarelapagos implements OnInit {
   private cartService = inject(CartService);
+  private pedidoService = inject(PedidoService);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   // Acceder al total y items del carrito
   total = this.cartService.total;
   items = this.cartService.items;
 
+  // Detectar si está logueado
+  isLoggedIn = false;
+  usuarioLogueado: any = null;
+
   // Estado del formulario
   formData = {
+    // Datos del cliente
+    nombre: '',
+    apellido: '',
+    correo: '',
+    telefono: '',
+    direccion: '',
+    
+    // Datos de pago
     cardName: '',
     cardNumber: '',
     expiry: '',
     cvv: '',
-    paymentMethod: '',
-    email: ''
+    paymentMethod: ''
   };
 
   // Estado del pago
@@ -36,6 +51,27 @@ export class Pasarelapagos {
   errorMessage = '';
   paidAmount: number | null = null;
   orderNumber = '';
+
+  ngOnInit(): void {
+    // Verificar si el usuario está logueado
+    this.isLoggedIn = this.authService.isAuthenticated();
+    
+    if (this.isLoggedIn) {
+      this.usuarioLogueado = this.authService.getUserData();
+      this.autocompletarDatos();
+    }
+  }
+
+  // Autocompletar datos del usuario logueado
+  private autocompletarDatos(): void {
+    if (this.usuarioLogueado) {
+      this.formData.nombre = this.usuarioLogueado.nombre || '';
+      this.formData.apellido = this.usuarioLogueado.apellido || '';
+      this.formData.correo = this.usuarioLogueado.correo || '';
+      this.formData.telefono = this.usuarioLogueado.telefono || '';
+      this.formData.direccion = this.usuarioLogueado.direccion || '';
+    }
+  }
 
   // Detectar tipo de tarjeta
   detectCardType(cardNumber: string): string {
@@ -49,7 +85,7 @@ export class Pasarelapagos {
     return '';
   }
 
-  // Procesar pago
+  // Procesar pago (CONECTADO AL BACKEND)
   processPayment(event: Event): void {
     event.preventDefault();
 
@@ -66,42 +102,82 @@ export class Pasarelapagos {
       return;
     }
 
-    // Simular procesamiento de pago
+    // Preparar datos para enviar al backend
+    const pedidoData = {
+      cliente: `${this.formData.nombre} ${this.formData.apellido}`,
+      correo: this.formData.correo,
+      telefono: this.formData.telefono,
+      direccion: `${this.formData.direccion}`,
+      metodoPago: this.formData.paymentMethod.toUpperCase(),
+      productos: this.cartService.items().map(item => ({
+        idProducto: parseInt(item.id) || 1,
+        nombreProducto: item.nombre,
+        imagenProducto: item.imagen,
+        cantidad: item.cantidad,
+        precioUnitario: item.precio
+      })),
+      montoTotal: this.cartService.total(),
+      idUsuario: this.isLoggedIn ? this.usuarioLogueado?.idUsuario : null
+    };
+
+    // Enviar al backend
     this.isProcessing = true;
     this.paymentError = false;
 
-    // Simular delay de procesamiento
-    setTimeout(() => {
-      // Simular pago exitoso (90% de éxito)
-      if (Math.random() > 0.1) {
-        this.orderNumber = this.generateOrderNumber();
-        this.paidAmount = this.cartService.total();
+    this.pedidoService.crearPedidoDesdeCarrito(pedidoData).subscribe({
+      next: (response) => {
+        // Pago exitoso
+        this.orderNumber = response.numeroPedido;
+        this.paidAmount = response.montoTotal;
         this.paymentSuccess = true;
         this.isProcessing = false;
 
-        // Limpiar carrito después de mostrar el recibo
+        // Limpiar carrito
         setTimeout(() => {
           this.cartService.clearCart();
-          // Redirigir a home después de 3 segundos
+          // Redirigir a home después de 8 segundos
           setTimeout(() => {
             this.router.navigate(['/home']);
           }, 8000);
         }, 2000);
-      } else {
-        // Simular fallo ocasional
+      },
+      error: (error) => {
+        // Error en el pago
         this.paymentError = true;
-        this.errorMessage = 'Error en el procesamiento. Intenta nuevamente.';
+        this.errorMessage = error.error || 'Error al procesar el pago. Intenta nuevamente.';
         this.isProcessing = false;
+        console.error('Error al crear pedido:', error);
       }
-    }, 2500);
+    });
   }
 
   // Validar formulario
   private validateForm(): boolean {
-    const { cardName, cardNumber, expiry, cvv, paymentMethod, email } = this.formData;
+    const { nombre, apellido, correo, telefono, direccion, 
+            cardName, cardNumber, expiry, cvv, paymentMethod } = this.formData;
     
-    if (!cardName.trim() || !cardNumber.trim() || !expiry || !cvv || !paymentMethod || !email.trim()) {
-      this.errorMessage = 'Por favor completa todos los campos correctamente.';
+    // Validar datos del cliente
+    if (!nombre.trim() || !apellido.trim() || !correo.trim() || 
+        !telefono.trim() || !direccion.trim())  {
+      this.errorMessage = 'Por favor completa todos los datos de contacto.';
+      return false;
+    }
+
+    // Validar email
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+      this.errorMessage = 'Correo electrónico inválido.';
+      return false;
+    }
+
+    // Validar teléfono (9 dígitos)
+    if (!/^\d{9}$/.test(telefono)) {
+      this.errorMessage = 'Teléfono inválido (debe tener 9 dígitos).';
+      return false;
+    }
+
+    // Validar datos de pago
+    if (!cardName.trim() || !cardNumber.trim() || !expiry || !cvv || !paymentMethod) {
+      this.errorMessage = 'Por favor completa todos los datos de pago.';
       return false;
     }
 
@@ -118,12 +194,6 @@ export class Pasarelapagos {
       return false;
     }
 
-    // Validar email
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      this.errorMessage = 'Correo electrónico inválido.';
-      return false;
-    }
-
     // Validar que la fecha no sea pasada
     const [year, month] = expiry.split('-').map(Number);
     const expiryDate = new Date(year, month);
@@ -137,13 +207,6 @@ export class Pasarelapagos {
     }
 
     return true;
-  }
-
-  // Generar número de orden
-  private generateOrderNumber(): string {
-    const timestamp = Date.now();
-    const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-    return `GG-${timestamp}-${random}`;
   }
 
   // Formatear número de tarjeta

@@ -29,16 +29,30 @@ export class CrudPedidosComponent implements OnInit {
   showFacturaModal = false;
   showDetallesModal = false;
   showRUCModal = false;
+  showEstadoModal = false; // ← NUEVO
 
   // Datos seleccionados
   selectedPedido: Pedido | null = null;
   boletaData: ReporteBoleta | null = null;
   facturaData: ReporteFactura | null = null;
   numeroRUC = '';
+  nuevoEstado = ''; // ← NUEVO
 
   // Estados UI
   generandoBoleta = false;
   generandoFactura = false;
+  cambiandoEstado = false; // ← NUEVO
+
+  // Estados disponibles
+  estadosDisponibles = [ // ← NUEVO
+    'PENDIENTE',
+    'CONFIRMADO',
+    'EN_PREPARACION',
+    'ENVIADO',
+    'ENTREGADO',
+    'COMPLETADO',
+    'CANCELADO'
+  ];
 
   constructor(private pedidoService: PedidoService) {}
 
@@ -53,7 +67,7 @@ export class CrudPedidosComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.pedidoService.listarActivos(this.currentPage, this.pageSize).subscribe({
+    this.pedidoService.listarPedidos(this.currentPage, this.pageSize).subscribe({
       next: (response: any) => {
         this.pedidos = response.content || response;
         this.totalElements = response.totalElements || this.pedidos.length;
@@ -64,12 +78,6 @@ export class CrudPedidosComponent implements OnInit {
         console.error('Error al cargar pedidos:', err);
         this.errorMessage = 'Error al cargar los pedidos. Intente nuevamente.';
         this.isLoading = false;
-        // Cargar mock data si el servidor no está disponible
-        this.pedidoService.pedidos$.subscribe((mockPedidos) => {
-          this.pedidos = mockPedidos;
-          this.totalElements = mockPedidos.length;
-          this.totalPages = Math.ceil(mockPedidos.length / this.pageSize);
-        });
       }
     });
   }
@@ -160,6 +168,41 @@ export class CrudPedidosComponent implements OnInit {
   }
 
   /**
+   * ============================================
+   * NUEVO: CAMBIAR ESTADO DEL PEDIDO
+   * ============================================
+   */
+  abrirModalEstado(pedido: Pedido): void {
+    this.selectedPedido = pedido;
+    this.nuevoEstado = pedido.estado;
+    this.showEstadoModal = true;
+  }
+
+  cambiarEstado(): void {
+    if (!this.selectedPedido?.idPedido || !this.nuevoEstado) {
+      this.errorMessage = 'Error: Debe seleccionar un estado válido';
+      return;
+    }
+
+    this.cambiandoEstado = true;
+    this.errorMessage = '';
+
+    this.pedidoService.actualizarEstado(this.selectedPedido.idPedido, this.nuevoEstado).subscribe({
+      next: () => {
+        this.successMessage = `Estado cambiado a ${this.nuevoEstado} exitosamente`;
+        this.showEstadoModal = false;
+        this.cambiandoEstado = false;
+        this.cargarPedidos(); // Recargar la lista
+      },
+      error: (err) => {
+        console.error('Error al cambiar estado:', err);
+        this.errorMessage = 'Error al cambiar el estado del pedido';
+        this.cambiandoEstado = false;
+      }
+    });
+  }
+
+  /**
    * Generar boleta
    */
   generarBoleta(pedido: Pedido): void {
@@ -181,9 +224,6 @@ export class CrudPedidosComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al generar boleta:', err);
-        this.errorMessage = 'Error al generar la boleta';
-        this.generandoBoleta = false;
-        // Generar boleta mock
         this.generarBoletaMock(pedido);
       }
     });
@@ -206,6 +246,7 @@ export class CrudPedidosComponent implements OnInit {
     this.selectedPedido = pedido;
     this.showBoletaModal = true;
     this.successMessage = 'Boleta generada (datos de demo)';
+    this.generandoBoleta = false;
   }
 
   /**
@@ -244,9 +285,6 @@ export class CrudPedidosComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al generar factura:', err);
-        this.errorMessage = 'Error al generar la factura';
-        this.generandoFactura = false;
-        // Generar factura mock
         this.generarFacturaMock();
       }
     });
@@ -276,6 +314,7 @@ export class CrudPedidosComponent implements OnInit {
     this.facturaData = factura;
     this.showFacturaModal = true;
     this.showRUCModal = false;
+    this.generandoFactura = false;
     this.successMessage = 'Factura generada (datos de demo)';
   }
 
@@ -363,67 +402,28 @@ export class CrudPedidosComponent implements OnInit {
           <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
             .header { text-align: center; margin-bottom: 20px; }
-            .boleta-title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-            .info-section { margin-bottom: 15px; }
-            .info-label { font-weight: bold; }
-            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+            table { width: 100%; border-collapse: collapse; }
             th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
             th { background-color: #f5f5f5; }
-            .total-row { font-weight: bold; }
-            .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #666; }
           </style>
         </head>
         <body>
           <div class="header">
-            <div class="boleta-title">BOLETA DE VENTA</div>
-            <div>PixelPlay Store</div>
+            <h1>BOLETA DE VENTA</h1>
+            <p>PixelPlay Store</p>
+            <p>${this.boletaData.numeroBoleta}</p>
           </div>
-
-          <div class="info-section">
-            <div class="info-label">Número de Boleta:</div>
-            <div>${this.boletaData.numeroBoleta}</div>
-          </div>
-
-          <div class="info-section">
-            <div class="info-label">Fecha de Emisión:</div>
-            <div>${new Date(this.boletaData.fechaEmision).toLocaleDateString('es-PE')}</div>
-          </div>
-
-          <div class="info-section">
-            <div class="info-label">Cliente:</div>
-            <div>${this.boletaData.cliente.nombre} ${this.boletaData.cliente.apellido}</div>
-            <div>Correo: ${this.boletaData.cliente.correo}</div>
-            <div>Teléfono: ${this.boletaData.cliente.telefono}</div>
-            <div>Dirección: ${this.boletaData.cliente.direccion}</div>
-          </div>
-
+          <p><strong>Cliente:</strong> ${this.boletaData.cliente.nombre} ${this.boletaData.cliente.apellido}</p>
+          <p><strong>Dirección:</strong> ${this.boletaData.cliente.direccion}</p>
           <table>
             <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-              </tr>
+              <tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Total</th></tr>
             </thead>
             <tbody>
               ${detalles}
-              <tr class="total-row">
-                <td colspan="3">TOTAL:</td>
-                <td>$${this.boletaData.montoTotal.toFixed(2)}</td>
-              </tr>
+              <tr><td colspan="3"><strong>TOTAL:</strong></td><td><strong>$${this.boletaData.montoTotal.toFixed(2)}</strong></td></tr>
             </tbody>
           </table>
-
-          <div class="info-section">
-            <div class="info-label">Método de Pago:</div>
-            <div>${this.boletaData.metodoPago.replace(/_/g, ' ')}</div>
-          </div>
-
-          <div class="footer">
-            <p>Gracias por su compra en PixelPlay</p>
-            <p>Esta es una boleta generada electrónicamente</p>
-          </div>
         </body>
       </html>
     `;
@@ -453,79 +453,31 @@ export class CrudPedidosComponent implements OnInit {
           <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
             .header { text-align: center; margin-bottom: 20px; }
-            .factura-title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-            .info-section { margin-bottom: 15px; }
-            .info-label { font-weight: bold; }
-            .two-columns { display: flex; justify-content: space-between; margin-bottom: 15px; }
-            .column { flex: 1; }
-            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+            table { width: 100%; border-collapse: collapse; }
             th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
             th { background-color: #f5f5f5; }
-            .total-section { text-align: right; margin-bottom: 20px; }
-            .total-item { font-size: 14px; margin-bottom: 5px; }
-            .total-final { font-weight: bold; font-size: 16px; }
-            .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #666; }
           </style>
         </head>
         <body>
           <div class="header">
-            <div class="factura-title">FACTURA ELECTRÓNICA</div>
-            <div>PixelPlay Store</div>
+            <h1>FACTURA ELECTRÓNICA</h1>
+            <p>PixelPlay Store</p>
+            <p>RUC: ${this.facturaData.numeroRUC}</p>
+            <p>${this.facturaData.numeroFactura}</p>
           </div>
-
-          <div class="two-columns">
-            <div class="column">
-              <div class="info-label">Número de Factura:</div>
-              <div>${this.facturaData.numeroFactura}</div>
-            </div>
-            <div class="column">
-              <div class="info-label">RUC:</div>
-              <div>${this.facturaData.numeroRUC}</div>
-            </div>
-          </div>
-
-          <div class="info-section">
-            <div class="info-label">Fecha de Emisión:</div>
-            <div>${new Date(this.facturaData.fechaEmision).toLocaleDateString('es-PE')}</div>
-          </div>
-
-          <div class="info-section">
-            <div class="info-label">Cliente:</div>
-            <div>${this.facturaData.cliente.nombre} ${this.facturaData.cliente.apellido}</div>
-            <div>Correo: ${this.facturaData.cliente.correo}</div>
-            <div>Teléfono: ${this.facturaData.cliente.telefono}</div>
-            <div>Dirección: ${this.facturaData.cliente.direccion}</div>
-          </div>
-
+          <p><strong>Cliente:</strong> ${this.facturaData.cliente.nombre} ${this.facturaData.cliente.apellido}</p>
+          <p><strong>Dirección:</strong> ${this.facturaData.cliente.direccion}</p>
           <table>
             <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-              </tr>
+              <tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Total</th></tr>
             </thead>
             <tbody>
               ${detalles}
+              <tr><td colspan="3">Subtotal:</td><td>$${this.facturaData.montoSubtotal.toFixed(2)}</td></tr>
+              <tr><td colspan="3">IGV (18%):</td><td>$${this.facturaData.montoIGV.toFixed(2)}</td></tr>
+              <tr><td colspan="3"><strong>TOTAL:</strong></td><td><strong>$${this.facturaData.montoTotal.toFixed(2)}</strong></td></tr>
             </tbody>
           </table>
-
-          <div class="total-section">
-            <div class="total-item">Subtotal: $${this.facturaData.montoSubtotal.toFixed(2)}</div>
-            <div class="total-item">IGV (18%): $${this.facturaData.montoIGV.toFixed(2)}</div>
-            <div class="total-item total-final">TOTAL: $${this.facturaData.montoTotal.toFixed(2)}</div>
-          </div>
-
-          <div class="info-section">
-            <div class="info-label">Método de Pago:</div>
-            <div>${this.facturaData.metodoPago.replace(/_/g, ' ')}</div>
-          </div>
-
-          <div class="footer">
-            <p>Gracias por su compra en PixelPlay</p>
-            <p>Esta es una factura generada electrónicamente</p>
-          </div>
         </body>
       </html>
     `;
@@ -553,10 +505,12 @@ export class CrudPedidosComponent implements OnInit {
     this.showFacturaModal = false;
     this.showDetallesModal = false;
     this.showRUCModal = false;
+    this.showEstadoModal = false; // ← NUEVO
     this.selectedPedido = null;
     this.boletaData = null;
     this.facturaData = null;
     this.numeroRUC = '';
+    this.nuevoEstado = ''; // ← NUEVO
   }
 
   /**
@@ -575,9 +529,12 @@ export class CrudPedidosComponent implements OnInit {
       'COMPLETADO': 'status-completed',
       'PENDIENTE': 'status-pending',
       'ENTREGADO': 'status-delivered',
-      'CANCELADO': 'status-cancelled'
+      'CANCELADO': 'status-cancelled',
+      'CONFIRMADO': 'status-completed',
+      'EN_PREPARACION': 'status-pending',
+      'ENVIADO': 'status-delivered'
     };
-    return clases[estado] || '';
+    return clases[estado] || 'status-pending';
   }
 
   /**
@@ -588,7 +545,10 @@ export class CrudPedidosComponent implements OnInit {
       'COMPLETADO': 'Completado',
       'PENDIENTE': 'Pendiente',
       'ENTREGADO': 'Entregado',
-      'CANCELADO': 'Cancelado'
+      'CANCELADO': 'Cancelado',
+      'CONFIRMADO': 'Confirmado',
+      'EN_PREPARACION': 'En Preparación',
+      'ENVIADO': 'Enviado'
     };
     return etiquetas[estado] || estado;
   }

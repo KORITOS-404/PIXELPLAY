@@ -378,6 +378,16 @@
   box-shadow: 0 4px 12px rgba(67, 212, 221, 0.4);
 }
 
+.btn-warning {
+  background: linear-gradient(90deg, #F7971E 0%, #FFD200 100%);
+  color: #fff;
+}
+
+.btn-warning:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(247, 151, 30, 0.4);
+}
+
 .btn-success {
   background: linear-gradient(90deg, #34e89e 0%, #0f3443 100%);
   color: #fff;
@@ -528,6 +538,9 @@
   color: #275efe;
   font-size: 1.3rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .modal-header.boleta-header,
@@ -860,7 +873,7 @@
 }
 
 /* ============================================ */
-/* MODAL DE RUC */
+/* MODAL DE RUC Y ESTADO */
 /* ============================================ */
 
 .form-group {

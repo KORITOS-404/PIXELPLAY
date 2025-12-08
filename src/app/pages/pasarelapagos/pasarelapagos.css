@@ -28,7 +28,7 @@
   border-radius: 25px;
   padding: 50px;
   width: 100%;
-  max-width: 480px;
+  max-width: 700px; /* ← AUMENTADO de 480px a 700px */
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(76, 175, 80, 0.3);
   backdrop-filter: blur(12px);
   position: relative;
@@ -197,6 +197,35 @@
   font-size: 1.5rem;
 }
 
+/* ========== SECCIONES DEL FORMULARIO ========== */
+.form-section {
+  background: rgba(76, 175, 80, 0.05);
+  border: 2px solid rgba(76, 175, 80, 0.25);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: #4caf50;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-transform: uppercase;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(76, 175, 80, 0.3);
+}
+
+.section-title i {
+  font-size: 1.5rem;
+}
+
 /* Formulario */
 .payment-form {
   display: flex;
@@ -250,7 +279,7 @@
   cursor: not-allowed;
 }
 
-/* Row para fecha y CVV */
+/* Row para múltiples campos */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -630,5 +659,9 @@
 
   .item-price {
     font-size: 0.95rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
   }
 }
