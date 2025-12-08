@@ -39,6 +39,7 @@ export class CartService {
   // Agregar producto al carrito
   addItem(product: {
     id?: number | string;
+    idProducto?: number | string;
     nombre: string;
     precio: number | string;
     imagen: string;
@@ -49,7 +50,14 @@ export class CartService {
       ? parseFloat(product.precio.replace('S/', '').trim()) 
       : product.precio;
     
-    const productId = product.id?.toString() || this.generateId(product.nombre);
+    // Priorizar idProducto, luego id
+    const productId = (product.idProducto || product.id)?.toString();
+    
+    if (!productId) {
+      console.error('❌ Producto sin ID:', product);
+      alert('Error: El producto no tiene un ID válido');
+      return;
+    }
     
     const existingItem = this._items().find(item => item.id === productId);
     
@@ -98,11 +106,6 @@ export class CartService {
   clearCart(): void {
     this._items.set([]);
     this.saveToLocalStorage();
-  }
-
-  // Generar ID único basado en nombre
-  private generateId(nombre: string): string {
-    return nombre.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now();
   }
 
   // Guardar en localStorage

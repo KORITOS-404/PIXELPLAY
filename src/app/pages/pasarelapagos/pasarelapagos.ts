@@ -85,71 +85,81 @@ export class Pasarelapagos implements OnInit {
     return '';
   }
 
-  // Procesar pago (CONECTADO AL BACKEND)
-  processPayment(event: Event): void {
-    event.preventDefault();
+// ✅ CORREGIDO: Procesar pago
+processPayment(event: Event): void {
+  event.preventDefault();
 
-    // Validar que el carrito no esté vacío
-    if (this.cartService.total() === 0) {
-      this.paymentError = true;
-      this.errorMessage = 'El carrito está vacío. Agrega productos antes de pagar.';
-      return;
-    }
-
-    // Validar datos del formulario
-    if (!this.validateForm()) {
-      this.paymentError = true;
-      return;
-    }
-
-    // Preparar datos para enviar al backend
-    const pedidoData = {
-      cliente: `${this.formData.nombre} ${this.formData.apellido}`,
-      correo: this.formData.correo,
-      telefono: this.formData.telefono,
-      direccion: `${this.formData.direccion}`,
-      metodoPago: this.formData.paymentMethod.toUpperCase(),
-      productos: this.cartService.items().map(item => ({
-        idProducto: parseInt(item.id) || 1,
-        nombreProducto: item.nombre,
-        imagenProducto: item.imagen,
-        cantidad: item.cantidad,
-        precioUnitario: item.precio
-      })),
-      montoTotal: this.cartService.total(),
-      idUsuario: this.isLoggedIn ? this.usuarioLogueado?.idUsuario : null
-    };
-
-    // Enviar al backend
-    this.isProcessing = true;
-    this.paymentError = false;
-
-    this.pedidoService.crearPedidoDesdeCarrito(pedidoData).subscribe({
-      next: (response) => {
-        // Pago exitoso
-        this.orderNumber = response.numeroPedido;
-        this.paidAmount = response.montoTotal;
-        this.paymentSuccess = true;
-        this.isProcessing = false;
-
-        // Limpiar carrito
-        setTimeout(() => {
-          this.cartService.clearCart();
-          // Redirigir a home después de 8 segundos
-          setTimeout(() => {
-            this.router.navigate(['/home']);
-          }, 8000);
-        }, 2000);
-      },
-      error: (error) => {
-        // Error en el pago
-        this.paymentError = true;
-        this.errorMessage = error.error || 'Error al procesar el pago. Intenta nuevamente.';
-        this.isProcessing = false;
-        console.error('Error al crear pedido:', error);
-      }
-    });
+  // Validar que el carrito no esté vacío
+  if (this.cartService.total() === 0) {
+    this.paymentError = true;
+    this.errorMessage = 'El carrito está vacío. Agrega productos antes de pagar.';
+    return;
   }
+
+  // Validar datos del formulario
+  if (!this.validateForm()) {
+    this.paymentError = true;
+    return;
+  }
+
+  // ✅ VALIDAR IDs de productos antes de enviar
+  const itemsConProblemas = this.cartService.items().filter(item => {
+    const id = parseInt(item.id);
+    return isNaN(id);
+  });
+
+  if (itemsConProblemas.length > 0) {
+    this.paymentError = true;
+    this.errorMessage = 'Algunos productos en tu carrito no tienen IDs válidos. Por favor, vacía el carrito y agrégalos nuevamente.';
+    console.error('❌ Productos con IDs inválidos:', itemsConProblemas);
+    return;
+  }
+
+  // ✅ PREPARAR DATOS para el backend
+  const pedidoData = {
+    nombre: this.formData.nombre,
+    apellido: this.formData.apellido,
+    correo: this.formData.correo,
+    telefono: this.formData.telefono,
+    direccion: this.formData.direccion,
+    metodoPago: this.formData.paymentMethod.toUpperCase(),
+    idUsuario: this.isLoggedIn ? this.usuarioLogueado?.idUsuario : null,
+    detalles: this.cartService.items().map(item => ({
+      idProducto: parseInt(item.id),
+      cantidad: item.cantidad
+    }))
+  };
+
+  // Enviar al backend
+  this.isProcessing = true;
+  this.paymentError = false;
+
+  this.pedidoService.crearPedidoDesdeCarrito(pedidoData).subscribe({
+    next: (response) => {
+      // Pago exitoso
+      this.orderNumber = response.numeroPedido;
+      this.paidAmount = response.montoTotal;
+      this.paymentSuccess = true;
+      this.isProcessing = false;
+
+      // Limpiar carrito
+      setTimeout(() => {
+        this.cartService.clearCart();
+        // Redirigir a home después de 8 segundos
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 8000);
+      }, 2000);
+    },
+    error: (error) => {
+      // Error en el pago
+      this.paymentError = true;
+      this.errorMessage = error.error || 'Error al procesar el pago. Intenta nuevamente.';
+      this.isProcessing = false;
+      console.error('Error al crear pedido:', error);
+    }
+  });
+}
 
   // Validar formulario
   private validateForm(): boolean {

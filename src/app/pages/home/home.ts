@@ -26,13 +26,14 @@ export class Home {
     return this.cartService.itemCount();
   }
 
-  // Agregar producto al carrito usando el servicio
-  addToCart(productName: string, productPrice: string, productImage: string) {
+  // Agregar producto al carrito usando el servicio (AHORA CON ID)
+  addToCart(productId: number, productName: string, productPrice: string, productImage: string) {
     // Convertir el precio de string a número
     const precio = parseFloat(productPrice.replace('S/', '').trim());
     
-    // Agregar al servicio
+    // Agregar al servicio con ID real
     this.cartService.addItem({
+      id: productId,          // ✅ ID que luego usará el backend como idProducto
       nombre: productName,
       precio: precio,
       imagen: productImage

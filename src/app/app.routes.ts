@@ -66,7 +66,7 @@ export const routes: Routes = [
       },
       {
         path: 'pedidos',
-        loadComponent: () => import('./pages/crud-pedidos/crud-pedidos').then(m => m.CrudPedidosComponent)
+        loadComponent: () => import('./pages/crud-pedidos/crud-pedidos').then(m => m.CrudPedidos)
       },
       {
         path: '',

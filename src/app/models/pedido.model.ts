@@ -1,41 +1,53 @@
+export interface Pedido {
+  idPedido: number;
+  numeroPedido: string;
+  idUsuario?: number;
+  
+  // Campos directos del pedido (pueden estar presentes o no)
+  cliente?: string;
+  nombre?: string;
+  apellido?: string;
+  correo?: string;
+  telefono?: string;
+  direccion?: string;
+  
+  // Objeto datosCliente (puede ser null o undefined)
+  datosCliente?: {
+    nombre: string;
+    apellido: string;
+    correo: string;
+    telefono: string;
+    direccion: string;
+    ciudad?: string;
+  } | null;
+  
+  detalles: DetallePedido[];
+  fechaPedido: string;
+  estado: string;
+  montoTotal: number;
+  metadoPago: string;
+  direccionEntrega?: string;
+}
+
 export interface DetallePedido {
-  idDetalle?: number;
+  idDetallePedido?: number;
   idProducto: number;
   nombreProducto: string;
   cantidad: number;
   precioUnitario: number;
-  subtotal?: number;
-  descripcion?: string;
-}
-
-export interface DatosCliente {
-  nombre: string;
-  apellido: string;
-  correo: string;
-  telefono: string;
-  direccion: string;
-  ciudad: string;
-  codigoPostal?: string;
-}
-
-export interface Pedido {
-  idPedido?: number;
-  numeroPedido?: string;
-  idUsuario: number;
-  datosCliente: DatosCliente;
-  detalles: DetallePedido[];
-  fechaPedido?: string;
-  estado: 'PENDIENTE' | 'COMPLETADO' | 'CANCELADO' | 'ENTREGADO';
-  montoTotal: number;
-  metadoPago: string;
-  numeroRUC?: string;
-  direccionEntrega: string;
+  subtotal: number;
 }
 
 export interface ReporteBoleta {
   numeroBoleta: string;
   fechaEmision: string;
-  cliente: DatosCliente;
+  cliente: {
+    nombre: string;
+    apellido: string;
+    correo: string;
+    telefono: string;
+    direccion: string;
+  };
   detalles: DetallePedido[];
   montoTotal: number;
   montoPagado: number;
@@ -46,7 +58,13 @@ export interface ReporteFactura {
   numeroFactura: string;
   fechaEmision: string;
   numeroRUC: string;
-  cliente: DatosCliente;
+  cliente: {
+    nombre: string;
+    apellido: string;
+    correo: string;
+    telefono: string;
+    direccion: string;
+  };
   detalles: DetallePedido[];
   montoTotal: number;
   montoSubtotal: number;
